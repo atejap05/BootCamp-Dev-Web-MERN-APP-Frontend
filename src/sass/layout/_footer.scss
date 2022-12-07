@@ -1,0 +1,11 @@
+.footer {
+  background-color: $color-blue;
+  color: $color-white;
+  font-size: $small-fs;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 5%;
+}

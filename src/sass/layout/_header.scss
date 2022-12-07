@@ -1,0 +1,12 @@
+.header {
+  background-color: red;
+  font-size: 28px;
+
+  & p {
+    color: green;
+  }
+
+  & h1 {
+    color: blue;
+  }
+}
