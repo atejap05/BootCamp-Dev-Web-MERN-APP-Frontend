@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import "antd/dist/antd.min.css";
+// import "antd/dist/antd.min.css";
 
 // Import de Components
 import Home from "./pages/Home";
@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      //TODO: Demais rotas aqui
+      {/* TODO: Demais rotas aqui */}
       <Route path="*" element={<ErrorPage />}></Route>
     </Routes>
   );
