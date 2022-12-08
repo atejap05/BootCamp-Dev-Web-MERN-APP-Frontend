@@ -8,7 +8,7 @@ import ErrorPage from "./pages/ErrorPage";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home />}></Route>
       {/* TODO: Demais rotas aqui */}
       <Route path="*" element={<ErrorPage />}></Route>
     </Routes>
