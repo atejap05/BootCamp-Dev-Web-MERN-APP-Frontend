@@ -9,20 +9,12 @@ import { GrShareOption } from "react-icons/gr";
 import { AiOutlineFieldTime, AiOutlineFileDone } from "react-icons/ai";
 import logo from "../assets/imgs/logo192.png";
 import { Button } from "antd";
+import Header from "../components/Layout/Header";
 
 const Home = () => {
   return (
     <div className={classes["home"]}>
-      <header className={classes["home__header"]}>
-        <div>
-          <img src={logo} alt="logo" />
-          <h1>PermutaGov</h1>
-        </div>
-        <div>
-          <p>Contact Us</p>
-          <p>About</p>
-        </div>
-      </header>
+      <Header />
       <main className={classes["home__content"]}>
         <section className={classes["home__content--cta"]}>
           <div>
