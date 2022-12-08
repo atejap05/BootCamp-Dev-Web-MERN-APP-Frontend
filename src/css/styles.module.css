@@ -12,7 +12,8 @@ html {
   font-size: 62.5%; }
 
 body {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  color: #212529; }
 
 .cardhome {
   padding: 2rem 1rem;
@@ -25,7 +26,8 @@ body {
   transition: all 0.2s; }
   .cardhome:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 3rem rgba(229, 229, 229, 0.25); }
+    box-shadow: 0 0 3rem rgba(229, 229, 229, 0.25);
+    background-color: #e5e5e5; }
   .cardhome > div {
     display: flex;
     align-items: center;
@@ -40,9 +42,11 @@ body {
   min-height: 100vh;
   margin-bottom: 2rem; }
   .home__header {
+    margin-bottom: 2rem;
     padding: 2rem 4vh;
     height: 10vh;
     font-size: 1.8rem;
+    color: #ffffff;
     background-image: linear-gradient(to right, #5c7cfa, #364fc7);
     display: flex;
     align-items: center;
@@ -51,12 +55,16 @@ body {
       display: flex;
       align-items: center;
       gap: 1rem; }
+    .home__header img {
+      width: 5rem;
+      border-radius: 50%;
+      box-shadow: 0 0 1rem rgba(33, 37, 41, 0.3); }
   .home__content {
     margin: 0 auto;
     max-width: 96vw; }
     .home__content--cta {
       min-height: 90vh;
-      background-color: aqua;
+      background-color: #99e9f2;
       display: flex;
       align-items: center;
       justify-content: space-between; }

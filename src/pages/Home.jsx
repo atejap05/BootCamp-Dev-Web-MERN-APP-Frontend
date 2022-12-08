@@ -7,13 +7,15 @@ import CardHome from "../components/UI/CardHome";
 import { GiArchiveRegister } from "react-icons/gi";
 import { GrShareOption } from "react-icons/gr";
 import { AiOutlineFieldTime, AiOutlineFileDone } from "react-icons/ai";
+import logo from "../assets/imgs/logo192.png";
+import { Button } from "antd";
 
 const Home = () => {
   return (
     <div className={classes["home"]}>
       <header className={classes["home__header"]}>
         <div>
-          <span>icon</span>
+          <img src={logo} alt="logo" />
           <h1>PermutaGov</h1>
         </div>
         <div>
@@ -26,13 +28,14 @@ const Home = () => {
           <div>
             <h1>Sua Permuta Fácil</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et vero
-              expedita similique commodi alias voluptates quo optio provident,
-              sit necessitatibus.
+              Podemos te ajudar a localizar outros servidores públicos federais
+              que estejam interessados em realizar permuta para a localidade que
+              você tanto deseja. Se já não é cadastrado no nosso banco de
+              permutas, registre-se abaixo.
             </p>
             <div className={classes["home__content--cta__btn"]}>
-              <button>Login</button>
-              <button>Singup</button>
+              <Button type="primary">Login</Button>
+              <Button>Singup</Button>
             </div>
           </div>
           <img src={peopleImg} alt="people illustration"></img>
