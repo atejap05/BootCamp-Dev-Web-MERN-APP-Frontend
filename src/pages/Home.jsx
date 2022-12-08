@@ -5,6 +5,8 @@ import Singup from "./Singup";
 import peopleImg from "../assets/imgs/people_talking.jpg";
 import CardHome from "../components/UI/CardHome";
 import { GiArchiveRegister } from "react-icons/gi";
+import { GrShareOption } from "react-icons/gr";
+import { AiOutlineFieldTime, AiOutlineFileDone } from "react-icons/ai";
 
 const Home = () => {
   return (
@@ -44,21 +46,21 @@ const Home = () => {
             }
           />
           <CardHome
-            icon={<GiArchiveRegister />}
+            icon={<GrShareOption />}
             title={"Manifeste-se"}
             text={
               "Inclua suas opções e inteções de permuta para que outros possam vizualizar."
             }
           />
           <CardHome
-            icon={<GiArchiveRegister />}
+            icon={<AiOutlineFieldTime />}
             title={"Aguarde"}
             text={
               "Aguarde a manifestação de outros servidores federais e o sistema enviará notificação para sua conta de e-mail cadastrada."
             }
           />
           <CardHome
-            icon={<GiArchiveRegister />}
+            icon={<AiOutlineFileDone />}
             title={"Permuta!"}
             text={
               "Agora é só seguir com as orientações do seu ógão para seguir com a sua permuta."
