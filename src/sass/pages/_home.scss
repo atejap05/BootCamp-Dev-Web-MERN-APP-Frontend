@@ -3,9 +3,16 @@
   margin-bottom: 2rem;
 
   &__header {
-    padding: 2rem 1rem;
+    padding: 2rem 4vh;
     height: 10vh;
-    background-color: red;
+
+    font-size: $medium-fs;
+
+    background-image: linear-gradient(
+      to right,
+      $color-lightblue,
+      $color-darkblue
+    );
     display: flex;
     align-items: center;
     justify-content: space-between;

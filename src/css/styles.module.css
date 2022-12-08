@@ -40,9 +40,10 @@ body {
   min-height: 100vh;
   margin-bottom: 2rem; }
   .home__header {
-    padding: 2rem 1rem;
+    padding: 2rem 4vh;
     height: 10vh;
-    background-color: red;
+    font-size: 1.8rem;
+    background-image: linear-gradient(to right, #5c7cfa, #364fc7);
     display: flex;
     align-items: center;
     justify-content: space-between; }
