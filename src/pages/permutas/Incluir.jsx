@@ -1,13 +1,25 @@
-import React from "react";
-import { Button, Form, Input } from "antd";
+import React, { useState } from "react";
+import { Button, Form } from "antd";
+import AntdSelect from "../../components/UI/AntSelect";
 import classes from "../../css/styles.module.css";
 
-const Incluir = () => {
-  const onFinish = values => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = errorInfo => {
-    console.log("Failed:", errorInfo);
+const DUMMY_OPTIONS = [
+  {
+    value: "1",
+    label: "Pará",
+  },
+  {
+    value: "2",
+    label: "Piauí",
+  },
+  { value: "3", label: "Mato Grosso" },
+];
+
+const Incluir = ({}) => {
+  const [selectedValues, setSelectedValues] = useState({});
+
+  const onIncluirHandler = () => {
+    console.log(selectedValues);
   };
 
   return (
@@ -18,6 +30,7 @@ const Incluir = () => {
           Nome: <span>Joel Alves Pereira</span>
         </p>
       </div>
+
       <div className={classes["incluir__origem"]}>
         <h3>Dados de Origem</h3>
         <div>
@@ -29,61 +42,34 @@ const Incluir = () => {
           </p>
         </div>
       </div>
+      <div className={classes["incluir__form"]}>
+        <h3>Dados de Destino</h3>
+        <div>
+          <AntdSelect
+            onSelectChange={value =>
+              setSelectedValues(prev => {
+                return { prev, value };
+              })
+            }
+            optionsArray={DUMMY_OPTIONS}
+            style={{ width: "20vw", marginRight: 50 }}
+          />
 
-      <Form
-        className={classes["incluir__form"]}
-        layout="inline"
-        name="incluir"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="UF:"
-          name="uf"
-          rules={[
-            {
-              required: true,
-              message: "Please input your UF!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          <AntdSelect
+            onSelectChange={value =>
+              setSelectedValues(prev => {
+                return { prev, value };
+              })
+            }
+            optionsArray={DUMMY_OPTIONS}
+            style={{ width: "20vw", marginRight: 50 }}
+          />
 
-        <Form.Item
-          label="Destino:"
-          name="Destino"
-          rules={[
-            {
-              required: true,
-              message: "Please input your destiny!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Button type="primary" htmlType="submit">
+          <Button onClick={onIncluirHandler} type="primary" htmlType="submit">
             Incluir
           </Button>
-        </Form.Item>
-      </Form>
+        </div>
+      </div>
     </section>
   );
 };
