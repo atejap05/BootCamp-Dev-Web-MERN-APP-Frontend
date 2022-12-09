@@ -5,7 +5,6 @@ import { Select } from "antd";
 // https://ant.design/components/select
 const AntdSelect = ({ optionsArray, style, onSelectChange }) => {
   const onChangeHandler = value => {
-    console.log(value);
     onSelectChange(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
 
