@@ -29,61 +29,61 @@ const Incluir = () => {
           </p>
         </div>
       </div>
-      <div className={classes["incluir__form"]}>
-        <Form
-          layout="inline"
-          name="incluir"
-          labelCol={{
-            span: 8,
-          }}
+
+      <Form
+        className={classes["incluir__form"]}
+        layout="inline"
+        name="incluir"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="UF:"
+          name="uf"
+          rules={[
+            {
+              required: true,
+              message: "Please input your UF!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Destino:"
+          name="Destino"
+          rules={[
+            {
+              required: true,
+              message: "Please input your destiny!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
           wrapperCol={{
+            offset: 8,
             span: 16,
           }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
         >
-          <Form.Item
-            label="UF:"
-            name="uf"
-            rules={[
-              {
-                required: true,
-                message: "Please input your UF!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Destino:"
-            name="Destino"
-            rules={[
-              {
-                required: true,
-                message: "Please input your destiny!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Incluir
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+          <Button type="primary" htmlType="submit">
+            Incluir
+          </Button>
+        </Form.Item>
+      </Form>
     </section>
   );
 };

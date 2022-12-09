@@ -80,7 +80,7 @@ const PermutaLayout = () => {
               {
                 key: "1",
                 icon: <UserOutlined />,
-                label: "Incluir Inteção",
+                label: "Incluir Intenção",
               },
               {
                 key: "2",
