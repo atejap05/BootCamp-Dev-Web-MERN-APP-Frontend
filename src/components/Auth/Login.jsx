@@ -1,40 +1,51 @@
 import React, { useState } from "react";
-import { Button, Modal, Form, Input } from "antd";
-// import SignUp from "./SignUp";
+import { Button, Modal, Form, Input, Alert } from "antd";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/api.js";
 
 const Login = () => {
+
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+  const [form, setForm] = useState({email: "", password: ""});
+  const [showAlert, setShowAlert] = useState(false);
+  const [loginErrorMsg, setLoginErrorMsg] = useState('');
 
-  const showModal = () => {
-    setOpen(true);
-  };
+  const showModal = () => {setOpen(true);};
 
   const handleOk = async (e) => {
-    console.log(form);
+
     e.preventDefault();
+
+    if (!form.email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)){
+      setShowAlert(true)
+      setLoginErrorMsg("Por favor, insira um e-mail válido!")
+      return
+    }
+
+    if(!form.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#!])[0-9a-zA-Z$*&@#!]{8,}$/)){
+      setShowAlert(true)
+      setLoginErrorMsg("Senha informada não atende os critério de validade!")
+      return
+    }
+
     try {
+
       const response = await api.post("/user/sign-in", form);
       localStorage.setItem("loggedInUser", JSON.stringify(response.data));
       navigate("/permuta");
+
     } catch (error) {
-      console.log(error);
+
+      console.log(error.response);
+
+      setShowAlert(true)
+      setLoginErrorMsg('E-mail ou senha incorretos')
     }
   };
 
   const handleCancel = () => {
     setOpen(false);
-  };
-
-  const handleSubmit = () => {
-    // setOpen(false);
-    console.log(form);
   };
 
   const handleChange = (e) => {
@@ -49,23 +60,11 @@ const Login = () => {
       <Modal
         open={open}
         title="Autenticação do usuário"
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={
-          [
-            // <Button key="back" onClick={handleCancel}>
-            //   Voltar
-            // </Button>,
-            // <Button key="submit" type="primary" onClick={handleOk}>
-            //   Entrar
-            // </Button>,
-          ]
-        }
+        footer={null}
       >
         <Form
           initialValues={{ remember: false }}
           autoComplete="off"
-          // onSubmit={handleSubmit}
         >
           <Form.Item
             label="E-mail"
@@ -94,6 +93,13 @@ const Login = () => {
           >
             <Input.Password />
           </Form.Item>
+
+          {showAlert && <Alert
+              message={loginErrorMsg}
+              type="error"
+              closable
+              onClose={() => setShowAlert(prev => !prev)}
+          />}
 
           <Form.Item>
             <p>
