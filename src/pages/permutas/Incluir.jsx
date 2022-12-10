@@ -4,8 +4,6 @@ import AntdSelect from "../../components/UI/AntSelect";
 import classes from "../../css/styles.module.css";
 import api from "../../api/api.js";
 
-const UNIDADES_CACHE = {}
-
 const Incluir = ({}) => {
     const [unidades, setUnidades] = useState([]);
     const [estados, setEstados] = useState([]);
@@ -18,7 +16,6 @@ const Incluir = ({}) => {
             setEstados(allStates)
         }).catch(err => console.error(err.errors))
     }, [])
-
 
     const onIncluirHandler = () => {
 
@@ -49,17 +46,14 @@ const Incluir = ({}) => {
                 <div>
                     <AntdSelect
                         onSelectChange={value => {
-                            if (UNIDADES_CACHE.hasOwnProperty(value.value)) {
-                                setUnidades(UNIDADES_CACHE[value.value])
-                            } else {
-                                api.get(`/unidade/${value.value}`)
-                                    .then(res => {
-                                        const unidadeslist = []
-                                        res.data.forEach(u => unidadeslist.push({value: u._id, label: u['name']}))
-                                        setUnidades(unidadeslist)
-                                        UNIDADES_CACHE[value.value] = unidadeslist
-                                    }).catch(e => console.error(e))
-                            }
+
+                            api.get(`/unidade/${value.value}`)
+                                .then(res => {
+                                    const unidadeslist = []
+                                    res.data.forEach(u => unidadeslist.push({value: u._id, label: u['name']}))
+                                    setUnidades(unidadeslist)
+                                }).catch(e => console.error(e))
+
                         }}
                         optionsArray={estados}
                         style={{width: "20vw", marginRight: 50}}
