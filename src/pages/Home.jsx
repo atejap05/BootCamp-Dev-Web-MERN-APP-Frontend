@@ -7,14 +7,12 @@ import CardHome from "../components/UI/CardHome";
 import { GiArchiveRegister } from "react-icons/gi";
 import { GrShareOption } from "react-icons/gr";
 import { AiOutlineFieldTime, AiOutlineFileDone } from "react-icons/ai";
-import logo from "../assets/imgs/logo192.png";
 import { Button } from "antd";
 import Header from "../components/Layout/Header";
 import api from "../api/api.js";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-
   const navigate = useNavigate();
 
   return (

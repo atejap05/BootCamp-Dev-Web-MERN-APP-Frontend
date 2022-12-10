@@ -4,14 +4,15 @@ import {
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  UsergroupAddOutlined,
+  FileSearchOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import Header from "../../components/Layout/Header";
 import Incluir from "./Incluir";
 import Consultar from "./Consultar";
-import Historico from "./Historico";
 import Manifestacoes from "./Manifestacoes";
+import UserProfile from "./UserProfile";
 const { Sider, Content } = Layout;
 const PermutaLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -26,13 +27,13 @@ const PermutaLayout = () => {
 
     switch (e.key) {
       case "1":
-        setPage(<Incluir />);
+        setPage(<UserProfile />);
         break;
       case "2":
-        setPage(<Consultar />);
+        setPage(<Incluir />);
         break;
       case "3":
-        setPage(<Historico />);
+        setPage(<Consultar />);
         break;
       case "4":
         setPage(<Manifestacoes />);
@@ -48,11 +49,11 @@ const PermutaLayout = () => {
       <Header />
       <Layout>
         <Sider
+          theme="light"
           trigger={null}
           collapsible
           collapsed={collapsed}
           width={400}
-          className="light-bg"
         >
           <div
             style={{
@@ -72,25 +73,26 @@ const PermutaLayout = () => {
           </div>
           <Menu
             onClick={onClickMenu}
-            theme="dark"
+            theme="light"
             mode="inline"
+            style={{ fontSize: "1.8rem" }}
             defaultSelectedKeys={["1"]}
             selectedKeys={[clickedItem]}
             items={[
               {
                 key: "1",
                 icon: <UserOutlined />,
-                label: "Incluir Intenção",
+                label: "Meu Perfil",
               },
               {
                 key: "2",
-                icon: <VideoCameraOutlined />,
-                label: "Consultar Disponíveis",
+                icon: <UsergroupAddOutlined />,
+                label: "Incluir Intenção",
               },
               {
                 key: "3",
-                icon: <UploadOutlined />,
-                label: "Histórico",
+                icon: <FileSearchOutlined />,
+                label: "Consultar Disponíveis",
               },
               {
                 key: "4",

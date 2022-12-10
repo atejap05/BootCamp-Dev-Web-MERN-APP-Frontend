@@ -33,6 +33,8 @@ body {
     width: 5rem;
     border-radius: 50%;
     box-shadow: 0 0 1rem rgba(33, 37, 41, 0.3); }
+  .header__user span {
+    margin-right: 0.4rem; }
 
 .cardhome {
   padding: 2rem 1rem;
@@ -122,3 +124,49 @@ body {
       margin-bottom: 1rem; }
     .incluir__form button {
       margin-left: 2rem; }
+
+.consultar {
+  padding: 2.4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.6rem;
+  font-size: 1.8rem; }
+  .consultar__title {
+    border-bottom: 1px solid #e5e5e5;
+    min-width: 100%; }
+    .consultar__title > h1 {
+      margin-bottom: 1rem; }
+  .consultar__origem {
+    min-width: 100%; }
+    .consultar__origem > h3 {
+      margin-bottom: 1rem; }
+    .consultar__origem > div {
+      display: flex;
+      align-items: center;
+      gap: 3.6rem; }
+  .consultar__form {
+    min-width: 100%; }
+    .consultar__form > h3 {
+      margin-bottom: 1rem; }
+    .consultar__form button {
+      margin-left: 2rem; }
+  .consultar__table {
+    min-width: 100%; }
+
+.errorpage {
+  padding: 2rem;
+  height: 100vh;
+  background-image: url("../assets/imgs/not-found.jpg");
+  background-size: 50%;
+  background-position: left;
+  background-repeat: no-repeat;
+  position: relative; }
+  .errorpage > * {
+    position: absolute;
+    top: 50%;
+    right: 25%;
+    width: 18rem;
+    height: 6rem;
+    font-size: 1.8rem;
+    border-radius: 0.8rem; }
