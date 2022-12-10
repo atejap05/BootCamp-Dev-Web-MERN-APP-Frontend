@@ -4,6 +4,8 @@ import logo from "../../assets/imgs/logo192.png";
 import { UserOutlined } from "@ant-design/icons";
 
 const Header = () => {
+  //TODO: Implementar logica para verificar usuario logado e setar o username na header!!
+
   return (
     <header className={classes["header"]}>
       <div className={classes["header__logo"]}>
