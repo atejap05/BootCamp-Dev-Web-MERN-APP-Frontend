@@ -8,8 +8,6 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { GrShareOption } from "react-icons/gr";
 import { AiOutlineFieldTime, AiOutlineFileDone } from "react-icons/ai";
 import Header from "../components/Layout/Header";
-import api from "../api/api.js";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 
@@ -28,17 +26,6 @@ const Home = () => {
               permutas, registre-se abaixo.
             </p>
             <div className={classes["home__content--cta__btn"]}>
-              {/* <Button type="primary" onClick={() => {
-                api.post('/user/sign-in', {
-                  "email": "julianohcosta@gmail.com",
-                  "password": "SenhaValida85!"
-                }).then(res => {
-                  localStorage.setItem("loggedInUser", JSON.stringify(res.data));
-
-                  navigate('/permuta')
-                })
-              }}>Login</Button>
-              <Button>Singup</Button> */}
               <Login />
               <SignUp />
             </div>
