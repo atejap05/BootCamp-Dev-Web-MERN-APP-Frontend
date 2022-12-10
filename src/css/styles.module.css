@@ -120,3 +120,32 @@ body {
       margin-bottom: 1rem; }
     .incluir__form button {
       margin-left: 2rem; }
+
+.consultar {
+  padding: 2.4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.6rem;
+  font-size: 1.8rem; }
+  .consultar__title {
+    border-bottom: 1px solid #e5e5e5;
+    min-width: 100%; }
+    .consultar__title > h1 {
+      margin-bottom: 1rem; }
+  .consultar__origem {
+    min-width: 100%; }
+    .consultar__origem > h3 {
+      margin-bottom: 1rem; }
+    .consultar__origem > div {
+      display: flex;
+      align-items: center;
+      gap: 3.6rem; }
+  .consultar__form {
+    min-width: 100%; }
+    .consultar__form > h3 {
+      margin-bottom: 1rem; }
+    .consultar__form button {
+      margin-left: 2rem; }
+  .consultar__table {
+    min-width: 100%; }
