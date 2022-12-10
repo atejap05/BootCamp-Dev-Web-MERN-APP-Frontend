@@ -11,7 +11,6 @@ import { Layout, Menu, theme } from "antd";
 import Header from "../../components/Layout/Header";
 import Incluir from "./Incluir";
 import Consultar from "./Consultar";
-import Historico from "./Historico";
 import Manifestacoes from "./Manifestacoes";
 import UserProfile from "./UserProfile";
 const { Sider, Content } = Layout;

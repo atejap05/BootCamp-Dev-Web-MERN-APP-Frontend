@@ -8,6 +8,7 @@ const UNIDADES_CACHE = {};
 const { Column, ColumnGroup } = Table;
 
 // Table results
+// TODO: data refere-se aos resultados obtidos no banco de dados para a unidade de destino seleciionada!
 const data = [
   {
     key: "1",
