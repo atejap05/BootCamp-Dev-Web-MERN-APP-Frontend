@@ -27,7 +27,7 @@ const SignUp = () => {
   };
   return (
     <div>
-      <Button type="primary" onClick={showModal}>
+      <Button onClick={showModal}>
         Cadastrar
       </Button>
       <Modal
