@@ -94,7 +94,7 @@ const Consultar = () => {
         </div>
       </div>
       <div className={classes["consultar__table"]}>
-        <p>Intenões de Permuta para:</p>
+        <p>Permutas Disponíveis:</p>
         <br />
         <Table dataSource={data}>
           <ColumnGroup title="DADOS DA ORIGEM">
