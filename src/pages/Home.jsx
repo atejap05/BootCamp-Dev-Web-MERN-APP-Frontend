@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "../css/styles.module.css";
-import Login from "./Login";
-import Singup from "./Singup";
+import Login from '../components/Auth/Login';
+import SignUp from '../components/Auth/SignUp';
 import peopleImg from "../assets/imgs/people_talking.jpg";
 import CardHome from "../components/UI/CardHome";
 import { GiArchiveRegister } from "react-icons/gi";
@@ -31,7 +31,7 @@ const Home = () => {
               permutas, registre-se abaixo.
             </p>
             <div className={classes["home__content--cta__btn"]}>
-              <Button type="primary" onClick={() => {
+              {/* <Button type="primary" onClick={() => {
                 api.post('/user/sign-in', {
                   "email": "julianohcosta@gmail.com",
                   "password": "SenhaValida85!"
@@ -40,7 +40,9 @@ const Home = () => {
                   navigate('/permuta')
                 })
               }}>Login</Button>
-              <Button>Singup</Button>
+              <Button>Singup</Button> */}
+              <Login />
+              <SignUp />
             </div>
           </div>
           <img src={peopleImg} alt="people illustration"></img>
