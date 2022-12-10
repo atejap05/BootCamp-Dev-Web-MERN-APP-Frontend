@@ -3,8 +3,9 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  HistoryOutlined,
+  UsergroupAddOutlined,
+  FileSearchOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import Header from "../../components/Layout/Header";
@@ -48,11 +49,11 @@ const PermutaLayout = () => {
       <Header />
       <Layout>
         <Sider
+          theme="light"
           trigger={null}
           collapsible
           collapsed={collapsed}
           width={400}
-          className="light-bg"
         >
           <div
             style={{
@@ -72,25 +73,26 @@ const PermutaLayout = () => {
           </div>
           <Menu
             onClick={onClickMenu}
-            theme="dark"
+            theme="light"
             mode="inline"
+            style={{ fontSize: "1.8rem" }}
             defaultSelectedKeys={["1"]}
             selectedKeys={[clickedItem]}
             items={[
               {
                 key: "1",
-                icon: <UserOutlined />,
+                icon: <UsergroupAddOutlined />,
                 label: "Incluir Intenção",
               },
               {
                 key: "2",
-                icon: <VideoCameraOutlined />,
+                icon: <FileSearchOutlined />,
                 label: "Consultar Disponíveis",
               },
               {
                 key: "3",
-                icon: <UploadOutlined />,
-                label: "Histórico",
+                icon: <HistoryOutlined />,
+                label: "Histórico Geral",
               },
               {
                 key: "4",
