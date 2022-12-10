@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Input } from "antd";
-import SignUp from "./SignUp";
+// import SignUp from "./SignUp";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/api.js";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -13,18 +16,30 @@ const Login = () => {
     setOpen(true);
   };
 
-  const handleOk = () => {
-    setOpen(false);
+  const handleOk = async (e) => {
+    console.log(form);
+    e.preventDefault();
+    try {
+      const response = await api.post("/user/sign-in", form);
+      localStorage.setItem("loggedInUser", JSON.stringify(response.data));
+      navigate("/permuta");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCancel = () => {
     setOpen(false);
   };
 
-  const handleRegister = () => {
-    setOpen(false);
-    return <SignUp />
-  }
+  const handleSubmit = () => {
+    // setOpen(false);
+    console.log(form);
+  };
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.id]: e.target.value });
+  };
 
   return (
     <div>
@@ -36,26 +51,29 @@ const Login = () => {
         title="Autenticação do usuário"
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            Voltar
-          </Button>,
-          <Button key="submit" type="primary" onClick={handleOk}>
-            Entrar
-          </Button>,
-        ]}
+        footer={
+          [
+            // <Button key="back" onClick={handleCancel}>
+            //   Voltar
+            // </Button>,
+            // <Button key="submit" type="primary" onClick={handleOk}>
+            //   Entrar
+            // </Button>,
+          ]
+        }
       >
         <Form
-          name="basic"
-          initialValues={{ remember: true }}
+          initialValues={{ remember: false }}
           autoComplete="off"
+          // onSubmit={handleSubmit}
         >
           <Form.Item
             label="E-mail"
-            name="username"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
             rules={[
               {
-                required: true,
                 message: "Por favor, insira seu e-mail.",
               },
             ]}
@@ -66,9 +84,10 @@ const Login = () => {
           <Form.Item
             label="Senha"
             name="password"
+            value={form.password}
+            onChange={handleChange}
             rules={[
               {
-                required: true,
                 message: "Por favor, insira sua senha.",
               },
             ]}
@@ -78,9 +97,15 @@ const Login = () => {
 
           <Form.Item>
             <p>
-              Não tem uma conta?<Button type="link" onClick={handleRegister}>Crie uma!</Button>
+              Não tem uma conta?<Button type="link">Crie uma!</Button>
             </p>
           </Form.Item>
+          <Button key="back" onClick={handleCancel}>
+            Voltar
+          </Button>
+          <Button key="submit" type="primary" onClick={handleOk}>
+            Entrar
+          </Button>
         </Form>
       </Modal>
     </div>
