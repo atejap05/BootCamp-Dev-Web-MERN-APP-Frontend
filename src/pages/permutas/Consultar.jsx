@@ -66,7 +66,7 @@ const Consultar = () => {
           />
 
           <Button onClick={onIncluirHandler} type="primary" htmlType="submit">
-            Incluir
+            Consultar
           </Button>
         </div>
       </div>
