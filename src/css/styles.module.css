@@ -80,12 +80,14 @@ body {
         gap: 2rem; }
         .home__content--cta > div p {
           font-size: 1.8rem; }
-        .home__content--cta > div > div button {
-          width: 12rem;
-          height: 4rem;
-          font-size: 1.8rem; }
-        .home__content--cta > div > div button:not(:last-child) {
-          margin-right: 2rem; }
+        .home__content--cta > div > div {
+          display: flex; }
+          .home__content--cta > div > div button {
+            width: 12rem;
+            height: 4rem;
+            font-size: 1.8rem; }
+          .home__content--cta > div > div button:not(:last-child) {
+            margin-right: 2rem; }
       .home__content--cta img {
         width: 60%;
         border-radius: 0.8rem;
