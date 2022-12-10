@@ -33,6 +33,8 @@ body {
     width: 5rem;
     border-radius: 50%;
     box-shadow: 0 0 1rem rgba(33, 37, 41, 0.3); }
+  .header__user span {
+    margin-right: 0.4rem; }
 
 .cardhome {
   padding: 2rem 1rem;

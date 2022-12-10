@@ -3,7 +3,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
-  HistoryOutlined,
+  UserOutlined,
   UsergroupAddOutlined,
   FileSearchOutlined,
 } from "@ant-design/icons";
@@ -13,6 +13,7 @@ import Incluir from "./Incluir";
 import Consultar from "./Consultar";
 import Historico from "./Historico";
 import Manifestacoes from "./Manifestacoes";
+import UserProfile from "./UserProfile";
 const { Sider, Content } = Layout;
 const PermutaLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -27,13 +28,13 @@ const PermutaLayout = () => {
 
     switch (e.key) {
       case "1":
-        setPage(<Incluir />);
+        setPage(<UserProfile />);
         break;
       case "2":
-        setPage(<Consultar />);
+        setPage(<Incluir />);
         break;
       case "3":
-        setPage(<Historico />);
+        setPage(<Consultar />);
         break;
       case "4":
         setPage(<Manifestacoes />);
@@ -81,18 +82,18 @@ const PermutaLayout = () => {
             items={[
               {
                 key: "1",
+                icon: <UserOutlined />,
+                label: "Meu Perfil",
+              },
+              {
+                key: "2",
                 icon: <UsergroupAddOutlined />,
                 label: "Incluir Intenção",
               },
               {
-                key: "2",
+                key: "3",
                 icon: <FileSearchOutlined />,
                 label: "Consultar Disponíveis",
-              },
-              {
-                key: "3",
-                icon: <HistoryOutlined />,
-                label: "Histórico Geral",
               },
               {
                 key: "4",
