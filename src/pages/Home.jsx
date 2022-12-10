@@ -35,6 +35,7 @@ const Home = () => {
                   "password": "SenhaValida85!"
                 }).then(res => {
                   localStorage.setItem("loggedInUser", JSON.stringify(res.data));
+
                   navigate('/permuta')
                 })
               }}>Login</Button>
@@ -43,7 +44,7 @@ const Home = () => {
               <SignUp />
             </div>
           </div>
-          <img src={peopleImg} alt="people illustration"></img>
+          <img src={peopleImg} alt="people illustration"/>
         </section>
         <section className={classes["home__content--cards"]}>
           <CardHome
