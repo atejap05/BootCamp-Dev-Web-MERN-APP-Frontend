@@ -3,7 +3,7 @@ import { Select } from "antd";
 
 // TODO: Options Array props is an array of [{value: String, label: String}]
 // https://ant.design/components/select
-const AntdSelect = ({ optionsArray, style, onSelectChange }) => {
+const AntdSelect = ({ optionsArray, style, onSelectChange, placeholder }) => {
   const onChangeHandler = value => {
     onSelectChange(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
@@ -19,7 +19,7 @@ const AntdSelect = ({ optionsArray, style, onSelectChange }) => {
           .toLowerCase()
           .localeCompare((optionB?.label ?? "").toLowerCase())
       }
-      placeholder="Search to Select"
+      placeholder={placeholder}
       onChange={onChangeHandler}
       options={optionsArray}
     />
