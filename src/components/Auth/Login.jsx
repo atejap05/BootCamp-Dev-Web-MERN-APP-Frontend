@@ -23,7 +23,7 @@ const Login = () => {
         }
 
         if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#!])[0-9a-zA-Z$*&@#!]{8,}$/)) {
-            setLoginErrorMsg("Senha informada não atende aos critérios de validade!")
+            setLoginErrorMsg("A senha deve conter maiúscula, minúscula, número e caracter especial ($*&@#!).")
             setShowAlert(true)
             return
         }

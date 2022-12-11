@@ -28,7 +28,7 @@ const Incluir = () => {
         if (destinoId.length === 0) {
             messageApi.open({
                 type: 'error',
-                content: 'Por favor seleciona uma unidade de destino',
+                content: 'Por favor, seleciona uma unidade de destino.',
             }).then()
             return
         }
