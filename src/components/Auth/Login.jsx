@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import {Alert, Button, Form, Input, Modal, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 import api from "../../api/api.js";
+import SignUp from "./SignUp";
 
-const Login = () => {
+
+const Login = ({setShowSignUp}) => {
 
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -104,7 +106,10 @@ const Login = () => {
 
                     <Form.Item>
                         <p>
-                            Não tem uma conta?<Button type="link">Crie uma!</Button>
+                            Não possui uma conta? <Button type="link" onClick={() => {
+                            toggleModal()
+                            setShowSignUp(prev => !prev)
+                        }}>Crie uma!</Button>
                         </p>
                     </Form.Item>
                     <Space>

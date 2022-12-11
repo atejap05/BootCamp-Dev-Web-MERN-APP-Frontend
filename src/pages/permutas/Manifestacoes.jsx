@@ -8,9 +8,11 @@ const Manifestacoes = () => {
 
     const [data, setData] = useState([])
 
-    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
     useEffect(() => {
+
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
         api.get(`/intencao/byUser/${loggedInUser['user']['_id']}`)
             .then(res => {
                 console.log(res.data)

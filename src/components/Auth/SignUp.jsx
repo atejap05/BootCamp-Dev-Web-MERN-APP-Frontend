@@ -3,7 +3,7 @@ import {Alert, Button, Form, Input, Modal} from "antd";
 import api from "../../api/api.js";
 import AntdSelect from "../UI/AntSelect";
 
-const SignUp = ({messageApi}) => {
+const SignUp = ({messageApi, showSignUp}) => {
 
     const [open, setOpen] = useState(false);
     const [orgaoList, setOrgaoList] = useState([]);
@@ -14,6 +14,7 @@ const SignUp = ({messageApi}) => {
     const [loginErrorMsg, setLoginErrorMsg] = useState('');
 
     useEffect(() => {
+
         api.get('/orgao')
             .then(res => {
                 setOrgaoList(res.data.map(o => {
@@ -21,6 +22,11 @@ const SignUp = ({messageApi}) => {
                 }))
             }).catch(err => console.error(err))
     }, [])
+
+    useEffect(() => {
+        toggleModal()
+
+    }, [showSignUp])
 
     const onFinish = async (values) => {
 

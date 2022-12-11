@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "../css/styles.module.css";
 import Login from '../components/Auth/Login';
 import SignUp from '../components/Auth/SignUp';
@@ -13,6 +13,7 @@ import {message, Space} from "antd";
 const Home = () => {
 
   const [messageApi, contextHolder] = message.useMessage();
+  const [showSignUp, setShowSignUp] = useState(false)
 
   return (
     <div className={classes["home"]}>
@@ -30,8 +31,8 @@ const Home = () => {
             </p>
             <div className={classes["home__content--cta__btn"]}>
               <Space size={'large'}>
-                <Login />
-                <SignUp messageApi={messageApi}/>
+                <Login setShowSignUp={setShowSignUp}/>
+                <SignUp messageApi={messageApi} showSignUp={showSignUp}/>
               </Space>
             </div>
           </div>
