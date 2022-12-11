@@ -27,19 +27,19 @@ const SignUp = ({messageApi}) => {
         const {name, cpf, email, password, confirmPassword} = values
 
         if (password !== confirmPassword) {
-            setLoginErrorMsg("As senhas informadas não são idênticas")
+            setLoginErrorMsg("As senhas informadas não são idênticas.")
             setShowAlert(true)
             return
         }
 
         if (selectedOrgaoId.length === 0) {
-            setLoginErrorMsg("Por favor selecione o seu órgão de origem.")
+            setLoginErrorMsg("Por favor, selecione seu órgão de origem.")
             setShowAlert(true)
             return
         }
 
         if (selectedUnidadeId.length === 0) {
-            setLoginErrorMsg("Por favor selecione a sua unidade de origem.")
+            setLoginErrorMsg("Por favor, selecione sua unidade de origem.")
             setShowAlert(true)
             return
         }
@@ -54,7 +54,7 @@ const SignUp = ({messageApi}) => {
 
             messageApi.open({
                 type: 'success',
-                content: 'Cadastro realizado com sucesso.Para acessar o sistema, por favor efetue o login',
+                content: 'Cadastro realizado com sucesso! Para acessar o sistema, efetue o login.',
             }).then()
 
         }
@@ -113,7 +113,7 @@ const SignUp = ({messageApi}) => {
                         name="orgao"
                         rules={[{required: false}]}
                     >
-                        <AntdSelect placeholder="Selecione seu órgão"
+                        <AntdSelect placeholder="Selecione seu órgão."
                                     optionsArray={orgaoList}
                                     onSelectChange={value => {
                                         setSelectedOrgaoId(value.value)
@@ -132,7 +132,7 @@ const SignUp = ({messageApi}) => {
                         name="unidade"
                         rules={[{required: false}]}
                     >
-                        <AntdSelect placeholder="Selecione sua unidade"
+                        <AntdSelect placeholder="Selecione sua unidade."
                                     optionsArray={unidades}
                                     onSelectChange={value => setSelectedUnidadeId(value.value)}
                         />
