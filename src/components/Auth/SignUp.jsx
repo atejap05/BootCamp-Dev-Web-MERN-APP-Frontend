@@ -54,7 +54,8 @@ const SignUp = ({messageApi}) => {
 
             messageApi.open({
                 type: 'success',
-                content: 'Cadastro realizado com sucesso.Para acessar o sistema, por favor efetue o login',
+                content: `Cadastro realizado com sucesso. 
+                Para acessar o sistema, por favor efetue o login`,
             }).then()
 
         }

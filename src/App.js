@@ -13,18 +13,18 @@ import Manifestacoes from "./pages/permutas/Manifestacoes";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />}></Route>
+      <Route path="/" element={<Home/>}/>
       <Route path="/permuta" element={<PermutaLayout />}>
-        <Route path="/permuta/incluir" element={<Incluir />}></Route>
-        <Route path="/permuta/consultar" element={<Consultar />}></Route>
-        <Route path="/permuta/historico" element={<Historico />}></Route>
+        <Route path="/permuta/incluir" element={<Incluir/>}/>
+        <Route path="/permuta/consultar" element={<Consultar/>}/>
+        <Route path="/permuta/historico" element={<Historico/>}/>
         <Route
-          path="/permuta/manifestacoes"
-          element={<Manifestacoes />}
-        ></Route>
+    path="/permuta/manifestacoes"
+    element={<Manifestacoes/>}
+    />
       </Route>
 
-      <Route path="*" element={<ErrorPage />}></Route>
+      <Route path="*" element={<ErrorPage/>}/>
     </Routes>
   );
 }

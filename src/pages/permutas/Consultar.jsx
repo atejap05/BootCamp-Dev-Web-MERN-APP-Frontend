@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import classes from "../../css/styles.module.css";
-import { Button } from "antd";
+import {Button, Space, Table} from "antd";
 import AntdSelect from "../../components/UI/AntSelect";
-import { Space, Table } from "antd";
-import api from "../../api/api";
+import api from "../../api/api.js";
+
 const UNIDADES_CACHE = {};
 const { Column, ColumnGroup } = Table;
 
