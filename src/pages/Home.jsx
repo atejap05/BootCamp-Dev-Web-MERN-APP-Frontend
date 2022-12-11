@@ -4,16 +4,19 @@ import Login from '../components/Auth/Login';
 import SignUp from '../components/Auth/SignUp';
 import peopleImg from "../assets/imgs/people_talking.jpg";
 import CardHome from "../components/UI/CardHome";
-import { GiArchiveRegister } from "react-icons/gi";
-import { GrShareOption } from "react-icons/gr";
-import { AiOutlineFieldTime, AiOutlineFileDone } from "react-icons/ai";
+import {GiArchiveRegister} from "react-icons/gi";
+import {GrShareOption} from "react-icons/gr";
+import {AiOutlineFieldTime, AiOutlineFileDone} from "react-icons/ai";
 import Header from "../components/Layout/Header";
+import {message, Space} from "antd";
 
 const Home = () => {
 
+  const [messageApi, contextHolder] = message.useMessage();
 
   return (
     <div className={classes["home"]}>
+      {contextHolder}
       <Header />
       <main className={classes["home__content"]}>
         <section className={classes["home__content--cta"]}>
@@ -26,8 +29,10 @@ const Home = () => {
               permutas, registre-se abaixo.
             </p>
             <div className={classes["home__content--cta__btn"]}>
-              <Login />
-              <SignUp />
+              <Space size={'large'}>
+                <Login />
+                <SignUp messageApi={messageApi}/>
+              </Space>
             </div>
           </div>
           <img src={peopleImg} alt="people illustration"/>

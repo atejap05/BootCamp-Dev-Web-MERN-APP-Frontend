@@ -1,153 +1,170 @@
-import React, { useState } from "react";
-import { Button, Modal, Form, Input, Switch, Select } from "antd";
+import React, {useEffect, useState} from "react";
+import {Alert, Button, Form, Input, Modal} from "antd";
+import api from "../../api/api.js";
+import AntdSelect from "../UI/AntSelect";
 
-const SignUp = () => {
-  const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    cpf: "",
-    email: "",
-    orgao: "",
-    unidade: "",
-    password: "",
-    confirmPassword: "",
-    isAdmin: false,
-  });
+const SignUp = ({messageApi}) => {
 
-  const showModal = () => {
-    setOpen(true);
-  };
+    const [open, setOpen] = useState(false);
+    const [orgaoList, setOrgaoList] = useState([]);
+    const [unidades, setUnidades] = useState([]);
+    const [selectedOrgaoId, setSelectedOrgaoId] = useState("");
+    const [selectedUnidadeId, setSelectedUnidadeId] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
+    const [loginErrorMsg, setLoginErrorMsg] = useState('');
 
-  const handleOk = () => {
-    setOpen(false);
-  };
+    useEffect(() => {
+        api.get('/orgao')
+            .then(res => {
+                setOrgaoList(res.data.map(o => {
+                    return {value: o._id, label: o.name}
+                }))
+            }).catch(err => console.error(err))
+    }, [])
 
-  const handleCancel = () => {
-    setOpen(false);
-  };
-  return (
-    <div>
-      <Button onClick={showModal}>
-        Cadastrar
-      </Button>
-      <Modal
-        open={open}
-        title="Cadastro de usuário"
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            Voltar
-          </Button>,
-          <Button key="submit" type="primary" onClick={handleOk}>
-            Entrar
-          </Button>,
-        ]}
-      >
-        <Form
-          name="basic"
-          initialValues={{ remember: true }}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Nome"
-            name="name"
-            rules={[
-              {
-                required: true,
-                message: "Por favor, insira seu nome.",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+    const onFinish = async (values) => {
 
-          <Form.Item
-            label="CPF"
-            name="cpf"
-            rules={[
-              {
-                required: true,
-                message: "Por favor, insira seu CPF.",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+        const {name, cpf, email, password, confirmPassword} = values
 
-          <Form.Item
-            label="E-mail"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Por favor, insira seu e-mail.",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+        if (password !== confirmPassword) {
+            setLoginErrorMsg("As senhas informadas não são idênticas")
+            setShowAlert(true)
+            return
+        }
 
-          <Form.Item
-          label="Órgão"
-          name="unit"
-          rules={[
-              {
-                required: true
-              },
-            ]}
+        if (selectedOrgaoId.length === 0) {
+            setLoginErrorMsg("Por favor selecione o seu órgão de origem.")
+            setShowAlert(true)
+            return
+        }
+
+        if (selectedUnidadeId.length === 0) {
+            setLoginErrorMsg("Por favor selecione a sua unidade de origem.")
+            setShowAlert(true)
+            return
+        }
+
+        const user = await api.post('/user/sign-up', {
+            name, cpf, email, password, orgaoId: selectedOrgaoId, unidadeId: selectedUnidadeId
+        })
+
+        if (user.status === 201) {
+
+            toggleModal()
+
+            messageApi.open({
+                type: 'success',
+                content: 'Cadastro realizado com sucesso.Para acessar o sistema, por favor efetue o login',
+            }).then()
+
+        }
+
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const toggleModal = () => {
+        setOpen(prev => !prev);
+    };
+
+    return (
+        <div>
+            <Button onClick={toggleModal}>Cadastrar</Button>
+            <Modal
+                open={open}
+                title="Cadastro de usuário"
+                onCancel={toggleModal}
+                footer={null}
             >
-            <Select placeholder="Selecione seu órgão">
-              <Select.Option value="RFB">Receita Federal</Select.Option>
-            </Select>
-          </Form.Item>
+                <Form
+                    name="basic"
+                    layout="vertical"
+                    initialValues={{remember: true}}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                >
+                    <Form.Item
+                        label="Nome"
+                        name="name"
+                        rules={[{required: true, message: "Por favor, insira seu nome."}]}
+                    >
+                        <Input/>
+                    </Form.Item>
 
-          <Form.Item
-          label="Unidade"
-          name="unit"
-          rules={[
-              {
-                required: true
-              },
-            ]}
-          >
-            <Select placeholder="Selecione sua unidade">
-              <Select.Option value="DRF-Santarém">Delegacia da Receita Federal do Brasil em Santarém</Select.Option>
-            </Select>
-          </Form.Item>
+                    <Form.Item
+                        label="CPF"
+                        name="cpf"
+                        rules={[{required: true, message: "Por favor, insira seu CPF."}]}
+                    >
+                        <Input/>
+                    </Form.Item>
 
-          <Form.Item
-            label="Senha"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Por favor, insira sua senha.",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
+                    <Form.Item
+                        label="E-mail"
+                        name="email"
+                        rules={[{required: true, message: "Por favor, insira seu e-mail."}]}
+                    >
+                        <Input/>
+                    </Form.Item>
 
-          <Form.Item
-            label="Confirma senha"
-            name="confirmPassword"
-            rules={[
-              {
-                required: true,
-                message: "Por favor, confirme sua senha.",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item label="Administrador" valuePropName="isAdmin">
-            <Switch />
-          </Form.Item>
-        </Form>
-      </Modal>
-    </div>
-  );
+                    <Form.Item
+                        label="Órgão"
+                        name="orgao"
+                        rules={[{required: false}]}
+                    >
+                        <AntdSelect placeholder="Selecione seu órgão"
+                                    optionsArray={orgaoList}
+                                    onSelectChange={value => {
+                                        setSelectedOrgaoId(value.value)
+                                        api.get(`/unidade/byOrgao?orgaoId=${value.value}`)
+                                            .then(res => {
+                                                setUnidades(res.data.map(u => {
+                                                    return {value: u._id, label: u['name']}
+                                                }))
+                                            }).catch(e => console.error(e))
+                                    }}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Unidade"
+                        name="unidade"
+                        rules={[{required: false}]}
+                    >
+                        <AntdSelect placeholder="Selecione sua unidade"
+                                    optionsArray={unidades}
+                                    onSelectChange={value => setSelectedUnidadeId(value.value)}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Senha"
+                        name="password"
+                        rules={[{required: true, message: "Por favor, insira sua senha."}]}
+                    >
+                        <Input.Password/>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Confirme senha"
+                        name="confirmPassword"
+                        rules={[{required: true, message: "Por favor, confirme sua senha."}]}
+                    >
+                        <Input.Password/>
+                    </Form.Item>
+                    <Button key="submit" type="primary" htmlType="submit">Cadastrar</Button>
+                    {showAlert && <Alert
+                        message={loginErrorMsg}
+                        type="error"
+                        closable
+                        onClose={() => setShowAlert(prev => !prev)}
+                    />}
+
+                </Form>
+            </Modal>
+        </div>
+    );
 };
 
 export default SignUp;

@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from "react";
-import {Button} from "antd";
+import {Button, message} from "antd";
 import AntdSelect from "../../components/UI/AntSelect";
 import classes from "../../css/styles.module.css";
 import api from "../../api/api.js";
 
-const Incluir = ({}) => {
+const Incluir = () => {
+
     const [unidades, setUnidades] = useState([]);
     const [estados, setEstados] = useState([]);
+    const [destinoId, setDestinoId] = useState('');
+    const [messageApi, contextHolder] = message.useMessage();
+
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
     useEffect(() => {
+
         api.get('/state/all').then(res => {
             const allStates = res.data.map(e => {
                 return {value: e['sigla'], label: e['nome']}
@@ -17,16 +23,38 @@ const Incluir = ({}) => {
         }).catch(err => console.error(err.errors))
     }, [])
 
-    const onIncluirHandler = () => {
+    const onIncluirHandler = async () => {
 
+        if (destinoId.length === 0) {
+            messageApi.open({
+                type: 'error',
+                content: 'Por favor seleciona uma unidade de destino',
+            }).then()
+            return
+        }
+
+        const payload = {
+            origemId: loggedInUser['user']['unidadeId'],
+            destinoId,
+            userId: loggedInUser['user']['_id']
+        }
+
+        const intencao = await api.post('/intencao/create', payload)
+        if (intencao?.data?.['createdAt']) {
+            messageApi.open({
+                type: 'success',
+                content: 'Intenção de movimentação cadastrada com sucesso!',
+            }).then()
+        }
     };
 
     return (
         <section className={classes["incluir"]}>
+            {contextHolder}
             <div className={classes["incluir__title"]}>
                 <h1>Intenções de Permuta</h1>
                 <p>
-                    Nome: <span>Joel Alves Pereira</span>
+                    Nome: <span>{loggedInUser['user']['name']}</span>
                 </p>
             </div>
 
@@ -34,10 +62,10 @@ const Incluir = ({}) => {
                 <h3>Dados de Origem</h3>
                 <div>
                     <p>
-                        UF: <span>MT</span>
+                        UF: <span>{loggedInUser['user']['unidadeState']}</span>
                     </p>
                     <p>
-                        Unidade: <span>DRF-Cuiabá</span>
+                        Unidade: <span>{loggedInUser['user']['unidadeSigla']}</span>
                     </p>
                 </div>
             </div>
@@ -47,11 +75,9 @@ const Incluir = ({}) => {
                     <AntdSelect
                         onSelectChange={value => {
 
-                            api.get(`/unidade/${value.value}`)
+                            api.get(`/unidade/porEstado/${value.value}?orgaoId=${loggedInUser['user']['orgaoId']}`)
                                 .then(res => {
-                                    const unidadeslist = []
-                                    res.data.forEach(u => unidadeslist.push({value: u._id, label: u['name']}))
-                                    setUnidades(unidadeslist)
+                                    setUnidades(res.data.map(u => {return {value: u._id, label: u['name']}}))
                                 }).catch(e => console.error(e))
 
                         }}
@@ -60,6 +86,7 @@ const Incluir = ({}) => {
                     />
 
                     <AntdSelect
+                        onSelectChange={value => setDestinoId(value.value)}
                         optionsArray={unidades}
                         style={{width: "20vw", marginRight: 50}}
                     />
