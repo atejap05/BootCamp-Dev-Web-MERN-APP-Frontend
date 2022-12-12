@@ -76,7 +76,7 @@ const PermutaLayout = () => {
             theme="light"
             mode="inline"
             style={{ fontSize: "1.8rem" }}
-            defaultSelectedKeys={["1"]}
+            defaultSelectedKeys={["2"]}
             selectedKeys={[clickedItem]}
             items={[
               {
