@@ -54,7 +54,7 @@ const Incluir = () => {
             <div className={classes["incluir__title"]}>
                 <h1>Intenções de Permuta</h1>
                 <p>
-                    Nome: <span>{loggedInUser['user']['name']}</span>
+                    Nome: <span>{loggedInUser && loggedInUser['user']['name']}</span>
                 </p>
             </div>
 
@@ -62,10 +62,10 @@ const Incluir = () => {
                 <h3>Dados de Origem</h3>
                 <div>
                     <p>
-                        UF: <span>{loggedInUser['user']['unidadeState']}</span>
+                        UF: <span>{loggedInUser && loggedInUser['user']['unidadeState']}</span>
                     </p>
                     <p>
-                        Unidade: <span>{loggedInUser['user']['unidadeSigla']}</span>
+                        Unidade: <span>{loggedInUser && loggedInUser['user']['unidadeSigla']}</span>
                     </p>
                 </div>
             </div>
