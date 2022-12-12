@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {Alert, Button, Form, Input, Modal, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 import api from "../../api/api.js";
@@ -10,8 +10,10 @@ const Login = ({setShowSignUp}) => {
     const [open, setOpen] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [loginErrorMsg, setLoginErrorMsg] = useState('');
+    const formRef = useRef()
 
     const toggleModal = () => {
+        formRef.current?.resetFields()
         setOpen(prev => !prev);
     };
 
@@ -28,6 +30,8 @@ const Login = ({setShowSignUp}) => {
             setShowAlert(true)
             return
         }
+
+
 
         try {
             const response = await api.post("/user/sign-in", {email, password});
@@ -69,6 +73,7 @@ const Login = ({setShowSignUp}) => {
                 <Form
                     initialValues={{remember: false}}
                     onFinish={onFinish}
+                    ref={formRef}
                 >
                     <Form.Item
                         label="E-mail"

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Alert, Button, Form, Input, Modal} from "antd";
 import api from "../../api/api.js";
 import AntdSelect from "../UI/AntSelect";
@@ -12,6 +12,8 @@ const SignUp = ({messageApi, showSignUp}) => {
     const [selectedUnidadeId, setSelectedUnidadeId] = useState("");
     const [showAlert, setShowAlert] = useState(false);
     const [loginErrorMsg, setLoginErrorMsg] = useState('');
+
+    const formRef = useRef()
 
     useEffect(() => {
 
@@ -71,6 +73,8 @@ const SignUp = ({messageApi, showSignUp}) => {
     };
 
     const toggleModal = () => {
+
+        formRef.current?.resetFields()
         setOpen(prev => !prev);
     };
 
@@ -89,6 +93,7 @@ const SignUp = ({messageApi, showSignUp}) => {
                     initialValues={{remember: true}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
+                    ref={formRef}
                 >
                     <Form.Item
                         label="Nome"
