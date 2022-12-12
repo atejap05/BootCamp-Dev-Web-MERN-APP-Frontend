@@ -73,7 +73,7 @@ const Consultar = () => {
                     <AntdSelect
                         onSelectChange={value => {
                             setSelectedState(value.value)
-                            api.get(`/unidade/porEstado/${value.value}?orgaoId=${loggedInUser['user']['orgaoId']}`)
+                            api.get(`/unidade/porEstado/${value.value}?orgaoId=${loggedInUser['user']['orgaoId']['_id']}`)
                                 .then(res => {
                                     setUnidades(res.data.map(u => {
                                         return {value: u._id, label: u['name']}
