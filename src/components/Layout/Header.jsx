@@ -1,9 +1,19 @@
 import React from "react";
 import classes from "../../css/styles.module.css";
 import logo from "../../assets/imgs/logo192.png";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Header = () => {
   //TODO: Implementar logica para verificar usuario logado e setar o username na header!!
+
+  const navigate = useNavigate();
+
+  function handleLogOut() {
+    localStorage.removeItem("loggedInUser");
+    navigate("/");
+  }
 
   return (
     <header className={classes["header"]}>
@@ -20,8 +30,7 @@ const Header = () => {
       {/*  </p>*/}
       {/*</div>*/}
       <div className={classes["header__contact"]}>
-        <p>Contact Us</p>
-        <p>About</p>
+        <p onClick={handleLogOut}>Sair</p>
       </div>
     </header>
   );
