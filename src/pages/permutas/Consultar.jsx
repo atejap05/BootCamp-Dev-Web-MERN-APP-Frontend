@@ -7,32 +7,12 @@ import api from "../../api/api.js";
 const UNIDADES_CACHE = {};
 const { Column, ColumnGroup } = Table;
 
-// Table results
-// TODO: data refere-se aos resultados obtidos no banco de dados para a unidade de destino seleciionada!
-const data = [
-  {
-    key: "1",
-    cpf: "***.***.683-72",
-    dataInclusao: "01/01/01",
-    unidadeOrigem: "DRF-Cuiabá",
-    ufOrigem: "MT",
-    unidadeDestino: "DRF-Sao Jose dos Campos",
-    ufDestino: "SP",
-  },
-  {
-    key: "2",
-    cpf: "***.***.683-72",
-    dataInclusao: "01/01/01",
-    unidadeOrigem: "DRF-Cuiabá",
-    ufOrigem: "MT",
-    unidadeDestino: "DRF-Nova York",
-    ufDestino: "NY",
-  },
-];
-
 const Consultar = () => {
+
   const [unidades, setUnidades] = useState([]);
   const [estados, setEstados] = useState([]);
+  const [data, setData] = useState([]);
+
 
   useEffect(() => {
     api
@@ -44,6 +24,27 @@ const Consultar = () => {
         setEstados(allStates);
       })
       .catch(err => console.error(err.errors));
+
+    api.get('/intencao/all')
+        .then(resposta => {
+            setData(resposta.data.map(i => {
+
+                let cpf = String(i.userId?.cpf).slice(-5)
+                cpf = "***.***." + cpf.substring(0, 3) + "-" + cpf.slice(-2)
+
+                return {
+                    key: i._id,
+                    cpf: cpf,
+                    dataInclusao: new Date(i['createdAt']).toLocaleDateString('pt-BR'),
+                    unidadeOrigem: i.origemId['sigla'],
+                    ufOrigem: i.origemId.state,
+                    unidadeDestino:  i.destinoId['sigla'],
+                    ufDestino: i.destinoId.state,
+                }
+            }))
+        })
+        .catch(e => console.error(e))
+
   }, []);
 
   const onIncluirHandler = () => {};
@@ -52,9 +53,6 @@ const Consultar = () => {
     <section className={classes["consultar"]}>
       <div className={classes["consultar__title"]}>
         <h1>Consulta Destino Disponíveis</h1>
-        <p>
-          Nome: <span>Joel Alves Pereira</span>
-        </p>
       </div>
 
       <div className={classes["consultar__form"]}>

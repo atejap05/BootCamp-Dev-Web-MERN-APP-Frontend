@@ -21,10 +21,10 @@ const Manifestacoes = () => {
                     return {
                         key: i._id,
                         dataInclusao: new Date(i['createdAt']).toLocaleDateString('pt-BR'),
-                        unidadeOrigem: i.unidadeOrigem['sigla'],
-                        ufOrigem: i.unidadeOrigem.state,
-                        unidadeDestino:  i.unidadeDestino['sigla'],
-                        ufDestino: i.unidadeDestino.state,
+                        unidadeOrigem: i.origemId['sigla'],
+                        ufOrigem: i.origemId.state,
+                        unidadeDestino:  i.destinoId['sigla'],
+                        ufDestino: i.destinoId.state,
                     }
                 }))
             })

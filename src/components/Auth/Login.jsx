@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {Alert, Button, Form, Input, Modal, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 import api from "../../api/api.js";
-import SignUp from "./SignUp";
 
 
 const Login = ({setShowSignUp}) => {
@@ -31,21 +30,21 @@ const Login = ({setShowSignUp}) => {
         }
 
         try {
-                const response = await api.post("/user/sign-in", {email, password});
+            const response = await api.post("/user/sign-in", {email, password});
 
-                const orgao = await api.get(`/orgao/${response.data['user']['orgaoId']}`)
-                const unidade = await api.get(`/unidade/${response.data['user']['unidadeId']}`)
+            const orgao = await api.get(`/orgao/${response.data['user']['orgaoId']}`)
+            const unidade = await api.get(`/unidade/${response.data['user']['unidadeId']}`)
 
-                response.data['user'].orgaoName = orgao.data.name
-                response.data['user'].orgaoSigla = orgao.data['sigla']
+            response.data['user'].orgaoName = orgao.data.name
+            response.data['user'].orgaoSigla = orgao.data['sigla']
 
-                response.data['user'].unidadeName = unidade.data.name
-                response.data['user'].unidadeSigla = unidade.data['sigla']
-                response.data['user'].unidadeState = unidade.data['state']
-                response.data['user'].unidadeCity = unidade.data['city']
+            response.data['user'].unidadeName = unidade.data.name
+            response.data['user'].unidadeSigla = unidade.data['sigla']
+            response.data['user'].unidadeState = unidade.data['state']
+            response.data['user'].unidadeCity = unidade.data['city']
 
-                localStorage.setItem("loggedInUser", JSON.stringify(response.data));
-                navigate("/permuta");
+            localStorage.setItem("loggedInUser", JSON.stringify(response.data));
+            navigate("/permuta");
         } catch (error) {
 
             console.log(error.response);
