@@ -16,7 +16,7 @@ import UserProfile from "./UserProfile";
 const { Sider, Content } = Layout;
 const PermutaLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [clickedItem, setClickedItem] = useState("1");
+  const [clickedItem, setClickedItem] = useState("2");
   const [page, setPage] = useState(<Incluir />);
   const {
     token: { colorBgContainer },

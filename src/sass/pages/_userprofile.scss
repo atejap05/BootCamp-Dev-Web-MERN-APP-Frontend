@@ -1,0 +1,30 @@
+.profile {
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    &--img {
+      position: relative;
+
+      & > img {
+        width: 12rem;
+      }
+
+      & > span {
+        position: absolute;
+        bottom: 0;
+        right: 5%;
+        font-size: $medium-fs;
+        cursor: pointer;
+      }
+    }
+
+    &--info {
+      font-size: $medium-fs;
+      & p:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

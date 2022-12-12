@@ -170,3 +170,22 @@ body {
     height: 6rem;
     font-size: 1.8rem;
     border-radius: 0.8rem; }
+
+.profile__header {
+  display: flex;
+  align-items: center;
+  gap: 2rem; }
+  .profile__header--img {
+    position: relative; }
+    .profile__header--img > img {
+      width: 12rem; }
+    .profile__header--img > span {
+      position: absolute;
+      bottom: 0;
+      right: 5%;
+      font-size: 1.8rem;
+      cursor: pointer; }
+  .profile__header--info {
+    font-size: 1.8rem; }
+    .profile__header--info p:not(:last-child) {
+      margin-bottom: 1rem; }
