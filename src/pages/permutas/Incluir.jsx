@@ -62,10 +62,10 @@ const Incluir = () => {
                 <h3>Dados de Origem</h3>
                 <div>
                     <p>
-                        UF: <span>{loggedInUser && loggedInUser['user']['unidadeState']}</span>
+                        UF: <span>{loggedInUser && loggedInUser['user']['unidadeId']['state']}</span>
                     </p>
                     <p>
-                        Unidade: <span>{loggedInUser && loggedInUser['user']['unidadeSigla']}</span>
+                        Unidade: <span>{loggedInUser && loggedInUser['user']['unidadeId']['sigla']}</span>
                     </p>
                 </div>
             </div>
