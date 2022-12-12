@@ -34,7 +34,9 @@ const Login = ({setShowSignUp}) => {
 
 
         try {
+            
             const response = await api.post("/user/sign-in", {email, password});
+            localStorage.setItem("loggedInUser", JSON.stringify(response.data));
 
             const orgao = await api.get(`/orgao/${response.data['user']['orgaoId']}`)
             const unidade = await api.get(`/unidade/${response.data['user']['unidadeId']}`)
@@ -47,7 +49,7 @@ const Login = ({setShowSignUp}) => {
             response.data['user'].unidadeState = unidade.data['state']
             response.data['user'].unidadeCity = unidade.data['city']
 
-            localStorage.setItem("loggedInUser", JSON.stringify(response.data));
+            
             navigate("/permuta");
         } catch (error) {
 
