@@ -125,7 +125,7 @@ const UserProfile = () => {
           <div className={classes["profile__header--img"]}>
             <img src={noImage} alt="User Profile Pic" />
             <span onClick={onClickEditPic}>
-              <EditOutlined />
+              <EditOutlined style={{ color: "#364fc7" }} />
             </span>
           </div>
           <div className={classes["profile__header--info"]}>

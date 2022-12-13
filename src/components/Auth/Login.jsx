@@ -1,152 +1,173 @@
-import React, {useRef, useState} from "react";
-import {Alert, Button, Form, Input, Modal, Space} from "antd";
-import {useNavigate} from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Alert, Button, Form, Input, Modal, Space } from "antd";
+import { useNavigate } from "react-router-dom";
+import classes from "../../css/styles.module.css";
 import api from "../../api/api.js";
 
+const Login = ({ setShowSignUp }) => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [loginErrorMsg, setLoginErrorMsg] = useState("");
+  const [modalTitle, setModalTitle] = useState("Autenticação do usuário");
 
-const Login = ({setShowSignUp}) => {
+  const [btnOkText, setBtnOkText] = useState("Entrar");
+  const [showSignupLink, setShowSignupLink] = useState(true);
+  const [showPasswordField, setShowPasswordField] = useState(true);
+  const [showforgotPasswordLink, setShowforgotPasswordLink] = useState(true);
+  const [tipo, setTipo] = useState("login");
 
-    const navigate = useNavigate();
-    const [open, setOpen] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-    const [loginErrorMsg, setLoginErrorMsg] = useState('');
-    const [modalTitle, setModalTitle] = useState("Autenticação do usuário")
+  const formRef = useRef();
 
-    const [btnOkText, setBtnOkText] = useState('Entrar')
-    const [showSignupLink, setShowSignupLink] = useState(true)
-    const [showPasswordField, setShowPasswordField] = useState(true)
-    const [showforgotPasswordLink, setShowforgotPasswordLink] = useState(true)
-    const [tipo, setTipo] = useState('login')
+  const toggleModal = () => {
+    formRef.current?.resetFields();
+    setShowAlert(false);
+    setOpen(prev => !prev);
 
+    setShowSignupLink(true);
+    setShowPasswordField(true);
+    setShowforgotPasswordLink(true);
+    setBtnOkText("Entrar");
+    setModalTitle("Autenticação do usuário");
+    setTipo("login");
+  };
 
-    const formRef = useRef()
+  const onFinish = async (tipo, { email, password }) => {
+    if (!email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g)) {
+      setLoginErrorMsg("Por favor, insira um e-mail válido!");
+      setShowAlert(true);
+      return;
+    }
 
-    const toggleModal = () => {
-        formRef.current?.resetFields()
-        setShowAlert(false)
-        setOpen(prev => !prev);
+    if (tipo === "login") {
+      if (
+        !password.match(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#!])[0-9a-zA-Z$*&@#!]{8,}$/
+        )
+      ) {
+        setLoginErrorMsg(
+          "A senha deve conter maiúscula, minúscula, número e caracter especial ($*&@#!)."
+        );
+        setShowAlert(true);
+        return;
+      }
 
-        setShowSignupLink(true)
-        setShowPasswordField(true)
-        setShowforgotPasswordLink(true)
-        setBtnOkText('Entrar')
-        setModalTitle("Autenticação do usuário")
-        setTipo('login')
-    };
+      try {
+        const response = await api.post("/user/sign-in", { email, password });
+        localStorage.setItem("loggedInUser", JSON.stringify(response.data));
 
-    const onFinish = async (tipo, {email, password}) => {
+        navigate("/permuta");
+      } catch (error) {
+        console.log(error.response);
 
+        setShowAlert(true);
+        setLoginErrorMsg(error.response["data"]["msg"]);
+      }
+    } else {
+    }
+  };
 
-        if (!email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g)) {
-            setLoginErrorMsg("Por favor, insira um e-mail válido!")
-            setShowAlert(true)
-            return
-        }
+  return (
+    <div>
+      <Button type="primary" onClick={toggleModal}>
+        Entrar
+      </Button>
+      <Modal
+        open={open}
+        title={modalTitle}
+        onCancel={() => setOpen(false)}
+        footer={null}
+      >
+        <Form
+          className={classes["login"]}
+          initialValues={{ remember: false }}
+          onFinish={values => onFinish(tipo, values)}
+          ref={formRef}
+        >
+          <Form.Item
+            label="E-mail"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Por favor, insira seu e-mail.",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        if (tipo === 'login') {
-            if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#!])[0-9a-zA-Z$*&@#!]{8,}$/)) {
-                setLoginErrorMsg("A senha deve conter maiúscula, minúscula, número e caracter especial ($*&@#!).")
-                setShowAlert(true)
-                return
-            }
-
-
-
-            try {
-
-                const response = await api.post("/user/sign-in", {email, password});
-                localStorage.setItem("loggedInUser", JSON.stringify(response.data));
-
-                navigate("/permuta");
-            } catch (error) {
-
-                console.log(error.response);
-
-                setShowAlert(true)
-                setLoginErrorMsg(error.response['data']['msg'])
-            }
-        } else {
-
-
-
-        }
-
-    };
-
-    return (
-        <div>
-            <Button type="primary" onClick={toggleModal}>Entrar</Button>
-            <Modal
-                open={open}
-                title={modalTitle}
-                onCancel={() => setOpen(false)}
-                footer={null}
+          {showPasswordField && (
+            <Form.Item
+              label="Senha"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Por favor, insira sua senha.",
+                },
+              ]}
             >
-                <Form
-                    initialValues={{remember: false}}
-                    onFinish={values => onFinish(tipo, values)}
-                    ref={formRef}
+              <Input.Password />
+            </Form.Item>
+          )}
+
+          {showAlert && (
+            <Alert
+              message={loginErrorMsg}
+              type="error"
+              closable
+              onClose={() => setShowAlert(prev => !prev)}
+            />
+          )}
+
+          {showSignupLink && (
+            <Form.Item>
+              <p>
+                Não possui uma conta?{" "}
+                <Button
+                  type="link"
+                  onClick={() => {
+                    toggleModal();
+                    setShowSignUp(prev => !prev);
+                  }}
                 >
-                    <Form.Item
-                        label="E-mail"
-                        name="email"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Por favor, insira seu e-mail.",
-                            },
-                        ]}
-                    >
-                        <Input/>
-                    </Form.Item>
-
-                    {showPasswordField && <Form.Item
-                        label="Senha"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Por favor, insira sua senha.",
-                            },
-                        ]}
-                    >
-                        <Input.Password/>
-                    </Form.Item>}
-
-                    {showAlert && <Alert
-                        message={loginErrorMsg}
-                        type="error"
-                        closable
-                        onClose={() => setShowAlert(prev => !prev)}
-                    />}
-
-                    {showSignupLink && <Form.Item>
-                        <p>
-                            Não possui uma conta? <Button type="link" onClick={() => {
-                            toggleModal()
-                            setShowSignUp(prev => !prev)
-                        }}>Crie uma!</Button>
-                        </p>
-                    </Form.Item>}
-                    {showforgotPasswordLink && <Form.Item>
-                        <div>
-                            Esqueceu a sua senha? <Button type="link" onClick={() => {
-                            setBtnOkText('Confirmar')
-                            setShowSignupLink(false)
-                            setModalTitle('Recuperação de senha')
-                            setShowPasswordField(false)
-                            setShowforgotPasswordLink(false)
-                            setTipo('pass')
-                        }}>clique aqui!</Button>
-                        </div>
-                    </Form.Item>}
-                    <Space>
-                        <Button key="back" onClick={toggleModal}>Voltar</Button>
-                        <Button key="submit" type="primary" htmlType="submit">{btnOkText}</Button>
-                    </Space>
-                </Form>
-            </Modal>
-        </div>
-    );
+                  Crie uma!
+                </Button>
+              </p>
+            </Form.Item>
+          )}
+          {showforgotPasswordLink && (
+            <Form.Item>
+              <div>
+                Esqueceu a sua senha?{" "}
+                <Button
+                  type="link"
+                  onClick={() => {
+                    setBtnOkText("Confirmar");
+                    setShowSignupLink(false);
+                    setModalTitle("Recuperação de senha");
+                    setShowPasswordField(false);
+                    setShowforgotPasswordLink(false);
+                    setTipo("pass");
+                  }}
+                >
+                  clique aqui!
+                </Button>
+              </div>
+            </Form.Item>
+          )}
+          <Space>
+            <Button key="back" onClick={toggleModal}>
+              Voltar
+            </Button>
+            <Button key="submit" type="primary" htmlType="submit">
+              {btnOkText}
+            </Button>
+          </Space>
+        </Form>
+      </Modal>
+    </div>
+  );
 };
 export default Login;
