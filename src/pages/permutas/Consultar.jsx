@@ -37,10 +37,11 @@ const Consultar = () => {
         // TODO alerta se não selecionar um estado.
 
         let url = `/intencao/all?state=${selectedState}`
-        if (selectedUnidadeId) url = url + `&destinoId=${selectedUnidadeId}`
-
+        if (selectedUnidadeId) url = url + `&orgaoId=${loggedInUser['user']['orgaoId']['_id']}&origemId=${selectedUnidadeId}`
+        console.log(url)
         api.get(url)
             .then(resposta => {
+              console.log(resposta)
                 setData(resposta.data.map(i => {
 
                     let cpf = String(i.userId?.cpf).slice(-5)
