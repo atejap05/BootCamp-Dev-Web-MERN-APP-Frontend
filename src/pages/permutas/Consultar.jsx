@@ -64,11 +64,11 @@ const Consultar = () => {
     return (
         <section className={classes["consultar"]}>
             <div className={classes["consultar__title"]}>
-                <h1>Consulta Destino Disponíveis</h1>
+                <h1>Consulta Origen Disponíveis</h1>
             </div>
 
             <div className={classes["consultar__form"]}>
-                <h3>Dados de Destino</h3>
+                <h3>Dados de Origem</h3>
                 <div className={classes["consultar__selects"]}>
                     <AntdSelect
                         onSelectChange={value => {
