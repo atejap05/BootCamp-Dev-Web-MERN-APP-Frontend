@@ -37,7 +37,7 @@ const Manifestacoes = () => {
     const intencaoId = record.key;
     api
       .delete(`/intencao/delete/${intencaoId}`)
-      .then(res => {
+      .then(_ => {
         setData(prev => prev.filter(data => data.key !== intencaoId));
       })
       .catch(err => console.log(err));
