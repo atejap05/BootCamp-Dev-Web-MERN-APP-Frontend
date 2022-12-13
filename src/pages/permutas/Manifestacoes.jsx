@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table } from "antd";
+import {message, Space, Table} from "antd";
 import api from "../../api/api";
 import { DeleteOutlined } from "@ant-design/icons";
 
@@ -7,6 +7,7 @@ const { Column, ColumnGroup } = Table;
 
 const Manifestacoes = () => {
   const [data, setData] = useState([]);
+    const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -39,13 +40,18 @@ const Manifestacoes = () => {
       .delete(`/intencao/delete/${intencaoId}`)
       .then(_ => {
         setData(prev => prev.filter(data => data.key !== intencaoId));
+          messageApi.open({
+              type: 'success',
+              content: 'Intenção excluída com sucesso!',
+          }).then()
       })
       .catch(err => console.log(err));
   };
 
   return (
     <>
-      <h1>Minhas Manifestacões</h1>
+        {contextHolder}
+      <h1>Minhas Manifestações</h1>
       <br />
       <Table dataSource={data}>
         <ColumnGroup title="DADOS DA ORIGEM">
