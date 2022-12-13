@@ -7,12 +7,15 @@ import AntButton from "../UI/AntButton";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
     //TODO: avaliar possibilidade de migrar metodologia de uso do localStorage para api context!
-    const userObj = localStorage.getItem("loggedInUser");
-    if (userObj) setIsLoggedIn(true);
+    const userObj = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!userObj) return;
+    setUser(userObj.user);
+    setIsLoggedIn(true);
   }, []);
 
   function handleLogOut() {
@@ -32,7 +35,7 @@ const Header = () => {
             <span>
               <UserOutlined />
             </span>
-            Joel Alves Pereira
+            {user.name}
           </p>
         )}
       </div>
