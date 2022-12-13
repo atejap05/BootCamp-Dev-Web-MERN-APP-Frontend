@@ -14,7 +14,7 @@ const Manifestacoes = () => {
     api
       .get(`/intencao/byUser/${loggedInUser["user"]["_id"]}`)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         setData(
           res.data.map(i => {
             return {
@@ -33,8 +33,14 @@ const Manifestacoes = () => {
       .catch(err => console.error(err));
   }, []);
 
-  const onDeleteManifestacaoHandler = () => {
-    console.log("deleta manifestacao");
+  const onDeleteManifestacaoHandler = record => {
+    const intencaoId = record.key;
+    api
+      .delete(`/intencao/delete/${intencaoId}`)
+      .then(res => {
+        setData(prev => prev.filter(data => data.key !== intencaoId));
+      })
+      .catch(err => console.log(err));
   };
 
   return (
@@ -68,7 +74,10 @@ const Manifestacoes = () => {
             render={(_, record) => (
               <Space size="middle">
                 <span>
-                  <DeleteOutlined onClick={onDeleteManifestacaoHandler} />
+                  <DeleteOutlined
+                    style={{ color: "#e03131" }}
+                    onClick={() => onDeleteManifestacaoHandler(record)}
+                  />
                 </span>
               </Space>
             )}
