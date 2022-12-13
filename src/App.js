@@ -7,7 +7,6 @@ import PermutaLayout from "./pages/permutas/PermutaLayout";
 import ErrorPage from "./pages/ErrorPage";
 import Incluir from "./pages/permutas/Incluir";
 import Consultar from "./pages/permutas/Consultar";
-import Historico from "./pages/permutas/Historico";
 import Manifestacoes from "./pages/permutas/Manifestacoes";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
@@ -18,7 +17,6 @@ function App() {
       <Route path="/permuta" element={<ProtectedRoute Component={PermutaLayout} />}>
         <Route path="/permuta/incluir" element={<ProtectedRoute Component={Incluir} />} />
         <Route path="/permuta/consultar" element={<ProtectedRoute Component={Consultar} />} />
-        <Route path="/permuta/historico" element={<ProtectedRoute Component={Historico} />} />
         <Route
     path="/permuta/manifestacoes"
     element={<ProtectedRoute Component={Manifestacoes} />}
