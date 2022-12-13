@@ -10,15 +10,32 @@ const Login = ({setShowSignUp}) => {
     const [open, setOpen] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [loginErrorMsg, setLoginErrorMsg] = useState('');
+    const [modalTitle, setModalTitle] = useState("Autenticação do usuário")
+
+    const [btnOkText, setBtnOkText] = useState('Entrar')
+    const [showSignupLink, setShowSignupLink] = useState(true)
+    const [showPasswordField, setShowPasswordField] = useState(true)
+    const [showforgotPasswordLink, setShowforgotPasswordLink] = useState(true)
+    const [tipo, setTipo] = useState('login')
+
+
     const formRef = useRef()
 
     const toggleModal = () => {
         formRef.current?.resetFields()
         setShowAlert(false)
         setOpen(prev => !prev);
+
+        setShowSignupLink(true)
+        setShowPasswordField(true)
+        setShowforgotPasswordLink(true)
+        setBtnOkText('Entrar')
+        setModalTitle("Autenticação do usuário")
+        setTipo('login')
     };
 
-    const onFinish = async ({email, password}) => {
+    const onFinish = async (tipo, {email, password}) => {
+
 
         if (!email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g)) {
             setLoginErrorMsg("Por favor, insira um e-mail válido!")
@@ -26,45 +43,48 @@ const Login = ({setShowSignUp}) => {
             return
         }
 
-        if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#!])[0-9a-zA-Z$*&@#!]{8,}$/)) {
-            setLoginErrorMsg("A senha deve conter maiúscula, minúscula, número e caracter especial ($*&@#!).")
-            setShowAlert(true)
-            return
+        if (tipo === 'login') {
+            if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#!])[0-9a-zA-Z$*&@#!]{8,}$/)) {
+                setLoginErrorMsg("A senha deve conter maiúscula, minúscula, número e caracter especial ($*&@#!).")
+                setShowAlert(true)
+                return
+            }
+
+
+
+            try {
+
+                const response = await api.post("/user/sign-in", {email, password});
+                localStorage.setItem("loggedInUser", JSON.stringify(response.data));
+
+                navigate("/permuta");
+            } catch (error) {
+
+                console.log(error.response);
+
+                setShowAlert(true)
+                setLoginErrorMsg(error.response['data']['msg'])
+            }
+        } else {
+
+
+
         }
 
-
-
-        try {
-            
-            const response = await api.post("/user/sign-in", {email, password});
-            localStorage.setItem("loggedInUser", JSON.stringify(response.data));
-
-            
-            navigate("/permuta");
-        } catch (error) {
-
-            console.log(error.response);
-
-            setShowAlert(true)
-            setLoginErrorMsg(error.response['data']['msg'])
-        }
-        // toggleModal()
     };
 
     return (
         <div>
-            <Button type="primary" onClick={toggleModal}>
-                Entrar
-            </Button>
+            <Button type="primary" onClick={toggleModal}>Entrar</Button>
             <Modal
                 open={open}
-                title="Autenticação do usuário"
+                title={modalTitle}
                 onCancel={() => setOpen(false)}
                 footer={null}
             >
                 <Form
                     initialValues={{remember: false}}
-                    onFinish={onFinish}
+                    onFinish={values => onFinish(tipo, values)}
                     ref={formRef}
                 >
                     <Form.Item
@@ -80,7 +100,7 @@ const Login = ({setShowSignUp}) => {
                         <Input/>
                     </Form.Item>
 
-                    <Form.Item
+                    {showPasswordField && <Form.Item
                         label="Senha"
                         name="password"
                         rules={[
@@ -91,7 +111,7 @@ const Login = ({setShowSignUp}) => {
                         ]}
                     >
                         <Input.Password/>
-                    </Form.Item>
+                    </Form.Item>}
 
                     {showAlert && <Alert
                         message={loginErrorMsg}
@@ -100,17 +120,29 @@ const Login = ({setShowSignUp}) => {
                         onClose={() => setShowAlert(prev => !prev)}
                     />}
 
-                    <Form.Item>
+                    {showSignupLink && <Form.Item>
                         <p>
                             Não possui uma conta? <Button type="link" onClick={() => {
                             toggleModal()
                             setShowSignUp(prev => !prev)
                         }}>Crie uma!</Button>
                         </p>
-                    </Form.Item>
+                    </Form.Item>}
+                    {showforgotPasswordLink && <Form.Item>
+                        <div>
+                            Esqueceu a sua senha? <Button type="link" onClick={() => {
+                            setBtnOkText('Confirmar')
+                            setShowSignupLink(false)
+                            setModalTitle('Recuperação de senha')
+                            setShowPasswordField(false)
+                            setShowforgotPasswordLink(false)
+                            setTipo('pass')
+                        }}>clique aqui!</Button>
+                        </div>
+                    </Form.Item>}
                     <Space>
                         <Button key="back" onClick={toggleModal}>Voltar</Button>
-                        <Button key="submit" type="primary" htmlType="submit">Entrar</Button>
+                        <Button key="submit" type="primary" htmlType="submit">{btnOkText}</Button>
                     </Space>
                 </Form>
             </Modal>
