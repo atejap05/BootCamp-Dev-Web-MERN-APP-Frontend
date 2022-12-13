@@ -14,6 +14,7 @@ const Login = ({setShowSignUp}) => {
 
     const toggleModal = () => {
         formRef.current?.resetFields()
+        setShowAlert(false)
         setOpen(prev => !prev);
     };
 
