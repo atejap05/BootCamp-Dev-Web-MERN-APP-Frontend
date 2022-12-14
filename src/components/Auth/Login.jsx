@@ -135,7 +135,7 @@ const Login = ({ setShowSignUp }) => {
                     setTipo("pass");
                   }}
                 >
-                  clique aqui!
+                  Clique aqui!
                 </Button>
               </div>
             </Form.Item>

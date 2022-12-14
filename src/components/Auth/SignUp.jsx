@@ -26,8 +26,9 @@ const SignUp = ({messageApi, showSignUp}) => {
     }, [])
 
     useEffect(() => {
-        toggleModal()
-
+        if (showSignUp === true) {
+            toggleModal()
+        }
     }, [showSignUp])
 
     const onFinish = async (values) => {
