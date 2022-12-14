@@ -12,6 +12,7 @@ const UserProfile = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
   const [orgaoList, setOrgaoList] = useState([]);
+  const [estados, setEstados] = useState([]);
   const [unidades, setUnidades] = useState([]);
   const [selectedOrgaoId, setSelectedOrgaoId] = useState(
     loggedInUser["user"]["orgaoId"]["_id"]
@@ -27,32 +28,42 @@ const UserProfile = () => {
   useEffect(() => {
     api
       .get("/orgao")
-      .then(res => {
+      .then((res) => {
         setOrgaoList(
-          res.data.map(o => {
+          res.data.map((o) => {
             return { value: o._id, label: o.name };
           })
         );
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
 
-    getUnidades(loggedInUser["user"]["orgaoId"]["_id"]);
+    api
+      .get("/state/all")
+      .then((res) => {
+        const allStates = res.data.map((e) => {
+          return { value: e["sigla"], label: e["nome"] };
+        });
+        setEstados(allStates);
+      })
+      .catch((err) => console.error(err.errors));
+
+    // getUnidades(loggedInUser["user"]["orgaoId"]["_id"]);
   }, []);
 
-  const getUnidades = orgaoId => {
-    api
-      .get(`/unidade/byOrgao?orgaoId=${orgaoId}`)
-      .then(res => {
-        setUnidades(
-          res.data.map(u => {
-            return { value: u._id, label: u["name"] };
-          })
-        );
-      })
-      .catch(e => console.error(e));
-  };
+  // const getUnidades = (orgaoId) => {
+  //   api
+  //     .get(`/unidade/byOrgao?orgaoId=${orgaoId}`)
+  //     .then((res) => {
+  //       setUnidades(
+  //         res.data.map((u) => {
+  //           return { value: u._id, label: u["name"] };
+  //         })
+  //       );
+  //     })
+  //     .catch((e) => console.error(e));
+  // };
 
-  const onFinish = async values => {
+  const onFinish = async (values) => {
     const { password, newPassword, confirmNewPassword } = values;
 
     console.log(newPassword, confirmNewPassword);
@@ -106,7 +117,7 @@ const UserProfile = () => {
         .then();
     }
   };
-  const onFinishFailed = errorInfo => {
+  const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
@@ -152,10 +163,31 @@ const UserProfile = () => {
               placeholder="Selecione seu órgão."
               optionsArray={orgaoList}
               value={loggedInUser["user"]["orgaoId"]["name"]}
-              onSelectChange={value => {
+              onSelectChange={(value) => {
                 setSelectedOrgaoId(value.value);
-                getUnidades(value.value);
+                // getUnidades(value.value);
               }}
+            />
+          </Form.Item>
+
+          <Form.Item label="Estado" name="estate" rules={[{ required: false }]}>
+            <AntdSelect
+              placeholder="Selecione o estado para filtrar as unidades."
+              onSelectChange={(value) => {
+                api
+                  .get(
+                    `/unidade/porEstado/${value.value}?orgaoId=${loggedInUser["user"]["orgaoId"]["_id"]}`
+                  )
+                  .then((res) => {
+                    setUnidades(
+                      res.data.map((u) => {
+                        return { value: u._id, label: u["name"] };
+                      })
+                    );
+                  })
+                  .catch((e) => console.error(e));
+              }}
+              optionsArray={estados}
             />
           </Form.Item>
 
@@ -167,7 +199,7 @@ const UserProfile = () => {
             <AntdSelect
               placeholder="Selecione sua unidade."
               optionsArray={unidades}
-              onSelectChange={value => setSelectedUnidadeId(value.value)}
+              onSelectChange={(value) => setSelectedUnidadeId(value.value)}
               value={loggedInUser["user"]["unidadeId"]["name"]}
             />
           </Form.Item>
@@ -196,7 +228,7 @@ const UserProfile = () => {
               message={errorMsg}
               type="error"
               closable
-              onClose={() => setShowAlert(prev => !prev)}
+              onClose={() => setShowAlert((prev) => !prev)}
             />
           )}
         </Form>
