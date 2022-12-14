@@ -11,10 +11,10 @@ import noImage from "../../assets/imgs/no_image.jpg";
 const UserProfile = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
-  const [orgaoList, setOrgaoList] = useState([]);
+  // const [orgaoList, setOrgaoList] = useState([]);
   const [estados, setEstados] = useState([]);
   const [unidades, setUnidades] = useState([]);
-  const [selectedOrgaoId, setSelectedOrgaoId] = useState(
+  const [selectedOrgaoId] = useState(
     loggedInUser["user"]["orgaoId"]["_id"]
   );
   const [selectedUnidadeId, setSelectedUnidadeId] = useState(
@@ -26,16 +26,16 @@ const UserProfile = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    api
-      .get("/orgao")
-      .then((res) => {
-        setOrgaoList(
-          res.data.map((o) => {
-            return { value: o._id, label: o.name };
-          })
-        );
-      })
-      .catch((err) => console.error(err));
+    // api
+    //   .get("/orgao")
+    //   .then((res) => {
+    //     setOrgaoList(
+    //       res.data.map((o) => {
+    //         return { value: o._id, label: o.name };
+    //       })
+    //     );
+    //   })
+    //   .catch((err) => console.error(err));
 
     api
       .get("/state/all")
@@ -74,11 +74,11 @@ const UserProfile = () => {
       return;
     }
 
-    if (selectedOrgaoId.length === 0) {
-      setErrorMsg("Por favor, selecione seu órgão de origem.");
-      setShowAlert(true);
-      return;
-    }
+    // if (selectedOrgaoId.length === 0) {
+    //   setErrorMsg("Por favor, selecione seu órgão de origem.");
+    //   setShowAlert(true);
+    //   return;
+    // }
 
     if (selectedUnidadeId.length === 0) {
       setErrorMsg("Por favor, selecione sua unidade de origem.");
@@ -158,8 +158,17 @@ const UserProfile = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item label="Órgão" name="orgao" rules={[{ required: false }]}>
-            <AntdSelect
+          <Form.Item
+            label="Órgão"
+            name="orgao"
+            rules={[{ required: false }]}
+          >
+          <Input
+            disabled
+            type="text"
+            placeholder={loggedInUser["user"]["orgaoId"]["name"]}
+          />
+            {/* <AntdSelect
               placeholder="Selecione seu órgão."
               optionsArray={orgaoList}
               value={loggedInUser["user"]["orgaoId"]["name"]}
@@ -167,7 +176,8 @@ const UserProfile = () => {
                 setSelectedOrgaoId(value.value);
                 // getUnidades(value.value);
               }}
-            />
+            /> */}
+
           </Form.Item>
 
           <Form.Item label="Estado" name="estate" rules={[{ required: false }]}>
