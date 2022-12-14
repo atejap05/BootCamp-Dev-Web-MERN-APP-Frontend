@@ -33,25 +33,8 @@ const Login = ({ setShowSignUp }) => {
   };
 
   const onFinish = async (tipo, { email, password }) => {
-    if (!email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g)) {
-      setLoginErrorMsg("Por favor, insira um e-mail válido!");
-      setShowAlert(true);
-      return;
-    }
 
     if (tipo === "login") {
-      if (
-        !password.match(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#!])[0-9a-zA-Z$*&@#!]{8,}$/
-        )
-      ) {
-        setLoginErrorMsg(
-          "A senha deve conter maiúscula, minúscula, número e caracter especial ($*&@#!)."
-        );
-        setShowAlert(true);
-        return;
-      }
-
       try {
         const response = await api.post("/user/sign-in", { email, password });
         localStorage.setItem("loggedInUser", JSON.stringify(response.data));
