@@ -12,12 +12,12 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<ProtectedRoute Component={Home}/>} />
       <Route
         path="/permuta"
         element={<ProtectedRoute Component={PermutaLayout} />}
       >
-        //TODO: estas rotas nao serão usadas!
+        {/* TODO: estas rotas nao serão usadas! */}
         <Route
           path="/permuta/incluir"
           element={<ProtectedRoute Component={Incluir} />}
