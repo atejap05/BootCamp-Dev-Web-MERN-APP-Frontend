@@ -34,6 +34,7 @@ Projeto desenvolvido para conclusão de curso durante a **Bootcamp em Desenvolvi
   - [x] Senha para acesso:
 
 - [x] Os usuários cadastrado têm acesso à aplicação Web, onde podem:
+
   - [x] Incluir uma ou mais unidades administrativas na localidade para onde deseja efetivar a permuta;
   - [x] Consultar unidades de origem disponíveis, isto é, aqueles em que outros servidores manifestaram-se intenção de permutar;
   - [x] Consultar o histórico de suas manifestações;
@@ -140,4 +141,4 @@ Desenvolvedores Full Stack que levaram a ideia do papel para o mundo Web em meno
     <td align="center"><a href="https://github.com/atejap05"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/70988415?s=400&u=05281d54fa0b757fd295a97004cd63ee9f05a815&v=4" width="100px;" alt="joel avatar"/><br /><sub><b>Joel Alves</b></sub></a><br /><a href="https://github.com/atejap05" title="Joel">👨‍🚀</a></td>
     <td align="center"><a href="https://github.com/julianohcosta"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/53791512?v=4" width="100px;" alt="juliano avatar"/><br /><sub><b>Juliano Hausen</b></sub></a><br /><a href="https://github.com/julianohcosta" title="Juliano">👨‍🚀</a></td>
     <td align="center"><a href="https://github.com/dcladeira"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/105871864?v=4" width="100px;" alt="daniel avatar"/><br /><sub><b>Daniel Ladeira</b></sub></a><br /><a href="https://github.com/dcladeira" title="Daniel">👨‍🚀</a></td>
-    <td align="center"><a href="https://github.com/murilodsd"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/55225225?v=4" width="100px;" alt="murilo avatar"/><br /><sub><b>Claudio Orlandi</b></sub></a><br /><a href="https://github.com/murilodsd" title="Murilo">👨‍🚀</a></td>
+    <td align="center"><a href="https://github.com/murilodsd"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/55225225?v=4" width="100px;" alt="murilo avatar"/><br /><sub><b>Murilo Dias</b></sub></a><br /><a href="https://github.com/murilodsd" title="Murilo">👨‍🚀</a></td>
