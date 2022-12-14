@@ -39,13 +39,24 @@ const Incluir = () => {
             userId: loggedInUser['user']['_id']
         }
 
-        const intencao = await api.post('/intencao/create', payload)
-        if (intencao?.data?.['createdAt']) {
+        try {
+            const intencao = await api.post('/intencao/create', payload)
+            if (intencao?.data?.['createdAt']) {
+                messageApi.open({
+                    type: 'success',
+                    content: 'Intenção de movimentação cadastrada com sucesso!',
+                }).then()
+            }
+        } catch (error) {
+            console.log(error);
             messageApi.open({
-                type: 'success',
-                content: 'Intenção de movimentação cadastrada com sucesso!',
+                type: 'error',
+                content: error.response.data.msg,
             }).then()
         }
+
+        
+
     };
 
     return (
@@ -60,6 +71,9 @@ const Incluir = () => {
 
             <div className={classes["incluir__origem"]}>
                 <h3>Dados de Origem</h3>
+                <p style={{marginBottom:"10px"}}>
+                        Orgão: <span>{loggedInUser && loggedInUser['user']['orgaoId']['name']}</span>
+                </p>
                 <div>
                     <p>
                         UF: <span>{loggedInUser && loggedInUser['user']['unidadeId']['state']}</span>
