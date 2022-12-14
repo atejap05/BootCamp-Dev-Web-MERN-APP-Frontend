@@ -1,7 +1,11 @@
+<h1 style="display: flex; aling-itens: center; justify-content: center; gap: 10px">
+    <img style="border-radius: 50%;" width="45px;" alt="ProjectHome" src="./src//assets/imgs/logo192.png" />
+PermutaGov</h1>
+
 <h1 align="center">
     <img alt="ProjectHome" src="./src//assets/imgs/banner.png" />
 </h1>
-
+--
 <p align="center">
  <a href="#-sobre-o-projeto">Sobre</a> •
  <a href="#-funcionalidades">Funcionalidades</a> •
