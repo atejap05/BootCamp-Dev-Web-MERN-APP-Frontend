@@ -73,7 +73,8 @@ const Consultar = () => {
                 <div className={classes["consultar__selects"]}>
                     <AntdSelect
                         onSelectChange={value => {
-                            setSelectedState(value.value)
+                            setSelectedState(value.value);
+                            setSelectedUnidadeId(null);
                             api.get(`/unidade/porEstado/${value.value}?orgaoId=${loggedInUser['user']['orgaoId']['_id']}`)
                                 .then(res => {
                                     setUnidades(res.data.map(u => {
@@ -91,6 +92,7 @@ const Consultar = () => {
                         optionsArray={unidades}
                         placeholder={"Selecione a Unidade"}
                         style={{width: "20vw", marginRight: 50}}
+                        defaultValue={selectedUnidadeId}
                     />
 
                     <Button onClick={onConsultar} type="primary" htmlType="submit">

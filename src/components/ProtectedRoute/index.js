@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
  
 
 export function ProtectedRoute({Component}) {
 
-const navigate = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
     
     const loggedInUser = 
     JSON.parse(localStorage.getItem("loggedInUser") || '""');
@@ -12,8 +13,12 @@ const navigate = useNavigate();
     useEffect( () =>
     {if(!loggedInUser) {
         navigate("/");
-    }},
-    []);
+    } else {
+        if(location.pathname === '/') {
+            navigate("/permuta");
+        }
+    }
+},[]);
 
     return <Component />
 };
