@@ -34,6 +34,24 @@ const SignUp = ({messageApi, showSignUp}) => {
 
         const {name, cpf, email, password, confirmPassword} = values
 
+        if (!email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g)) {
+            setLoginErrorMsg("Por favor, insira um e-mail válido!");
+            setShowAlert(true);
+            return;
+          }
+
+        if (
+        !password.match(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#!])[0-9a-zA-Z$*&@#!]{8,}$/
+        )
+        ) {
+        setLoginErrorMsg(
+            "A senha deve conter maiúscula, minúscula, número e caracter especial ($*&@#!)."
+        );
+        setShowAlert(true);
+        return;
+        }
+        
         if (password !== confirmPassword) {
             setLoginErrorMsg("As senhas informadas não são idênticas.")
             setShowAlert(true)
