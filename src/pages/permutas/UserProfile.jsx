@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Alert, Button, Divider, Form, Input, message } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import React, {useEffect, useState} from "react";
+import {Alert, Button, Divider, Form, Input, message} from "antd";
+import {EditOutlined} from "@ant-design/icons";
 import api from "../../api/api.js";
 import AntdSelect from "../../components/UI/AntSelect";
 import AntModal from "../../components/UI/AntModal.jsx";
@@ -23,19 +23,10 @@ const UserProfile = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [showPicModal, setShowPicModal] = useState(false);
+  const [unidadeName, setUnidadeName] = useState(loggedInUser["user"]["unidadeId"]["name"])
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    // api
-    //   .get("/orgao")
-    //   .then((res) => {
-    //     setOrgaoList(
-    //       res.data.map((o) => {
-    //         return { value: o._id, label: o.name };
-    //       })
-    //     );
-    //   })
-    //   .catch((err) => console.error(err));
 
     api
       .get("/state/all")
@@ -47,38 +38,18 @@ const UserProfile = () => {
       })
       .catch((err) => console.error(err.errors));
 
-    // getUnidades(loggedInUser["user"]["orgaoId"]["_id"]);
   }, []);
 
-  // const getUnidades = (orgaoId) => {
-  //   api
-  //     .get(`/unidade/byOrgao?orgaoId=${orgaoId}`)
-  //     .then((res) => {
-  //       setUnidades(
-  //         res.data.map((u) => {
-  //           return { value: u._id, label: u["name"] };
-  //         })
-  //       );
-  //     })
-  //     .catch((e) => console.error(e));
-  // };
 
   const onFinish = async (values) => {
     const { password, newPassword, confirmNewPassword } = values;
 
-    console.log(newPassword, confirmNewPassword);
 
     if (newPassword !== confirmNewPassword) {
       setErrorMsg("As senhas informadas não são idênticas.");
       setShowAlert(true);
       return;
     }
-
-    // if (selectedOrgaoId.length === 0) {
-    //   setErrorMsg("Por favor, selecione seu órgão de origem.");
-    //   setShowAlert(true);
-    //   return;
-    // }
 
     if (selectedUnidadeId.length === 0) {
       setErrorMsg("Por favor, selecione sua unidade de origem.");
@@ -177,16 +148,6 @@ const UserProfile = () => {
             type="text"
             placeholder={loggedInUser["user"]["orgaoId"]["name"]}
           />
-            {/* <AntdSelect
-              placeholder="Selecione seu órgão."
-              optionsArray={orgaoList}
-              value={loggedInUser["user"]["orgaoId"]["name"]}
-              onSelectChange={(value) => {
-                setSelectedOrgaoId(value.value);
-                // getUnidades(value.value);
-              }}
-            /> */}
-
           </Form.Item>
 
           <Form.Item label="Estado" name="estate" rules={[{ required: false }]}>
@@ -203,10 +164,12 @@ const UserProfile = () => {
                         return { value: u._id, label: u["name"] };
                       })
                     );
+                    setUnidadeName(null)
                   })
                   .catch((e) => console.error(e));
               }}
               optionsArray={estados}
+              defaultValue={loggedInUser["user"]["unidadeId"]["state"]}
             />
           </Form.Item>
 
@@ -219,7 +182,7 @@ const UserProfile = () => {
               placeholder="Selecione sua unidade."
               optionsArray={unidades}
               onSelectChange={(value) => setSelectedUnidadeId(value.value)}
-              value={loggedInUser["user"]["unidadeId"]["name"]}
+              defaultValue={unidadeName}
             />
           </Form.Item>
 
