@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   FileSearchOutlined,
   LaptopOutlined,
@@ -8,7 +8,7 @@ import {
   UsergroupAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import {Layout, Menu, theme} from "antd";
+import { Layout, Menu, theme } from "antd";
 import Header from "../../components/Layout/Header";
 import Incluir from "./Incluir";
 import Consultar from "./Consultar";
@@ -16,77 +16,79 @@ import Manifestacoes from "./Manifestacoes";
 import UserProfile from "./UserProfile";
 import PainelAdmin from "./PainelAdmin";
 
-const {Sider, Content} = Layout;
+const { Sider, Content } = Layout;
 
 const PermutaLayout = () => {
-
   const [collapsed, setCollapsed] = useState(false);
   const [clickedItem, setClickedItem] = useState("2");
-  const [page, setPage] = useState(<Incluir/>);
-  const {token: {colorBgContainer},} = theme.useToken();
+  const [page, setPage] = useState(<Incluir />);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
   const [menuItems, setMenuItems] = useState([
     {
       key: "1",
-      icon: <UserOutlined/>,
+      icon: <UserOutlined />,
       label: "Meu Perfil",
     },
     {
       key: "2",
-      icon: <UsergroupAddOutlined/>,
+      icon: <UsergroupAddOutlined />,
       label: "Incluir Intenção",
     },
     {
       key: "3",
-      icon: <FileSearchOutlined/>,
+      icon: <FileSearchOutlined />,
       label: "Consultar Disponíveis",
     },
     {
       key: "4",
-      icon: <UploadOutlined/>,
+      icon: <UploadOutlined />,
       label: "Minhas Manifestações",
-    }]);
+    },
+  ]);
 
-
-  const isAdmin = JSON.parse(localStorage.getItem("loggedInUser"))['user']['isAdmin'];
+  const isAdmin = JSON.parse(localStorage.getItem("loggedInUser"))["user"][
+    "isAdmin"
+  ];
 
   useEffect(() => {
-
     if (isAdmin) {
       setMenuItems(prev => {
+        if (prev.length === 5) return prev;
 
-        if (prev.length === 5) return prev
-
-        const newList = [...prev, {
-          key: '5',
-          icon: <LaptopOutlined/>,
-          label: 'Painel do administrador'
-        }]
-        return newList
-      })
-
+        const newList = [
+          ...prev,
+          {
+            key: "5",
+            icon: <LaptopOutlined />,
+            label: "Painel do administrador",
+          },
+        ];
+        return newList;
+      });
     }
-
-  }, [isAdmin])
+  }, [isAdmin]);
 
   const onClickMenu = e => {
     setClickedItem(e.key);
 
     switch (e.key) {
       case "1":
-        setPage(<UserProfile/>);
+        setPage(<UserProfile />);
         break;
       case "2":
-        setPage(<Incluir/>);
+        setPage(<Incluir />);
         break;
       case "3":
-        setPage(<Consultar/>);
+        setPage(<Consultar />);
         break;
       case "4":
-        setPage(<Manifestacoes/>);
+        setPage(<Manifestacoes />);
         break;
-      case '5':
-        setPage(<PainelAdmin/>)
-        break
+      case "5":
+        setPage(<PainelAdmin />);
+        break;
       default:
         break;
     }
@@ -94,7 +96,7 @@ const PermutaLayout = () => {
 
   return (
     <>
-      <Header/>
+      <Header />
       <Layout>
         <Sider
           theme="light"
@@ -105,13 +107,14 @@ const PermutaLayout = () => {
         >
           <div
             style={{
-              color: "#fff",
+              color: "#212529",
               textAlign: "center",
               fontSize: "2.4rem",
               padding: ".8rem",
             }}
           >
-            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+            {React.createElement(
+              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
               {
                 className: "trigger",
                 onClick: () => setCollapsed(!collapsed),
@@ -122,7 +125,7 @@ const PermutaLayout = () => {
             onClick={onClickMenu}
             theme="light"
             mode="inline"
-            style={{fontSize: "1.8rem"}}
+            style={{ fontSize: "1.8rem" }}
             defaultSelectedKeys={["2"]}
             selectedKeys={[clickedItem]}
             items={menuItems}
