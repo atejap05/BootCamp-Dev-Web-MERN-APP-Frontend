@@ -9,6 +9,7 @@ const AntdSelect = ({
   onSelectChange,
   placeholder,
   defaultValue,
+  value
 }) => {
   const onChangeHandler = value => {
     onSelectChange(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
@@ -28,7 +29,8 @@ const AntdSelect = ({
       placeholder={placeholder}
       onChange={onChangeHandler}
       options={optionsArray}
-      value={defaultValue}
+      defaultValue={defaultValue}
+      value={value}
     />
   );
 };

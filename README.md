@@ -1,4 +1,5 @@
-<h1 style="display: flex; aling-itens: center; justify-content: center; gap: 10px">
+# BootCamp-Dev-Web-MERN-APP-Frontend
+<h1 style="display: flex; align-items: center; justify-content: center; gap: 10px">
     <img style="border-radius: 50%;" width="45px;" alt="ProjectHome" src="./src/assets/imgs/logo192.png" />
 PermutaGov</h1>
 

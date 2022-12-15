@@ -47,6 +47,8 @@ const Login = ({ setShowSignUp }) => {
         setLoginErrorMsg(error.response["data"]["msg"]);
       }
     } else {
+
+      const response = await api.post("/user/sign-in", { email, password });
     }
   };
 
