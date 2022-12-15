@@ -25,9 +25,9 @@ const Home = () => {
             <h1>Sua Permuta Fácil</h1>
             <p>
               Podemos te ajudar a localizar outros servidores públicos federais
-              que estejam interessados em realizar permuta para a localidade que
-              você tanto deseja. Se já não é cadastrado no nosso banco de
-              permutas, registre-se abaixo.
+              que estejam interessados em realizar permuta, para você chegar à
+              localidade que tanto deseja. Se já não é cadastrado no nosso banco
+              de permutas, registre-se abaixo.
             </p>
             <div className={classes["home__content--cta__btn"]}>
               <Space size={'large'}>
@@ -43,14 +43,14 @@ const Home = () => {
             icon={<GiArchiveRegister />}
             title={"Registre-se"}
             text={
-              "Faça seu registro com seus dados no nosso banco de permutas."
+              "Faça o registro com seus dados no nosso banco de permutas."
             }
           />
           <CardHome
             icon={<GrShareOption />}
             title={"Manifeste-se"}
             text={
-              "Inclua suas opções e inteções de permuta para que outros possam vizualizar."
+              "Inclua suas opções e intenções de permuta para que outros possam visualizar."
             }
           />
           <CardHome
@@ -64,7 +64,7 @@ const Home = () => {
             icon={<AiOutlineFileDone />}
             title={"Permuta!"}
             text={
-              "Agora é só seguir com as orientações do seu ógão para seguir com a sua permuta."
+              "Agora é só seguir as orientações do seu órgão para efetivar a permuta."
             }
           />
         </section>
