@@ -17,7 +17,7 @@ PermutaGov</h1>
 
 ## 💻 Sobre o projeto
 
-**PermutaGov** - é uma forma de conectar servidores públicos federais com interesses comum em movimentação no território nacional por meio do sistema de permuta.
+**PermutaGov** - é uma forma de conectar servidores públicos federais com interesses comuns em movimentação no território nacional por meio do sistema de permuta.
 
 Projeto desenvolvido para conclusão de curso durante a **Bootcamp em Desenvolvimento Web FullStack** oferecida pela [Enap](https://www.enap.gov.br/pt/) em parceria com a [Ironhack](https://www.ironhack.com/en).
 
