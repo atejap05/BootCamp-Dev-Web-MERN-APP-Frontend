@@ -79,6 +79,15 @@ const UserProfile = () => {
       unidadeId: selectedUnidadeId,
     });
 
+    
+    let loggedInUserJson = localStorage.getItem("loggedInUser");
+    let parseLoggedInUser = JSON.parse(loggedInUserJson || '""');
+    parseLoggedInUser = {...parseLoggedInUser, 
+      user: {...parseLoggedInUser['user'], unidadeId: user.data.unidadeId}
+    }
+    loggedInUserJson = JSON.stringify(parseLoggedInUser)
+    localStorage.setItem('loggedInUser', loggedInUserJson)
+
     if (user.status === 201) {
       messageApi
         .open({
