@@ -88,6 +88,7 @@ const Incluir = () => {
                 <div>
                     <AntdSelect
                         onSelectChange={value => {
+                            setDestinoId(null);
                             api.get(`/unidade/porEstado/${value.value}?orgaoId=${loggedInUser['user']['orgaoId']['_id']}`)
                                 .then(res => {
                                     setUnidades(res.data.map(u => {return {value: u._id, label: u['name']}}))
@@ -102,6 +103,7 @@ const Incluir = () => {
                         onSelectChange={value => setDestinoId(value.value)}
                         optionsArray={unidades}
                         style={{width: "20vw", marginRight: 50}}
+                        value={destinoId}
                     />
 
                     <Button onClick={onIncluirHandler} type="primary" htmlType="submit">
