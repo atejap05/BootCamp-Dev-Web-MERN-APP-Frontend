@@ -92,7 +92,7 @@ const Consultar = () => {
                         optionsArray={unidades}
                         placeholder={"Selecione a Unidade"}
                         style={{width: "20vw", marginRight: 50}}
-                        defaultValue={selectedUnidadeId}
+                        value={selectedUnidadeId}
                     />
 
                     <Button onClick={onConsultar} type="primary" htmlType="submit">
