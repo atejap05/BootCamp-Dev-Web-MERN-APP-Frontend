@@ -48,7 +48,17 @@ const Login = ({ setShowSignUp }) => {
       }
     } else {
 
-      const response = await api.post("/user/sign-in", { email, password });
+      try {
+        const response = await api.get(`/user/new-password?email=${email}`);
+        toggleModal()
+      } catch (error) {
+        console.log(error.response);
+
+        setShowAlert(true);
+        setLoginErrorMsg(error.response["data"]["msg"]);
+      }
+
+
     }
   };
 
